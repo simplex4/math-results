@@ -1,0 +1,1 @@
+Are the positive results required by the counterexample? If not, please revise the LaTeX document, including only the proof of the counterexample and what is required by it.

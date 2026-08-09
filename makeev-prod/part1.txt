@@ -1,0 +1,518 @@
+# Status of the unrestricted problem
+
+Write (m=d+1) and normalize the roots:
+[
+V=\mathbf 1^\perp\subset \mathbb R^m,\qquad
+u_{ij}:=\frac{e_i-e_j}{\sqrt2}\in S(V),\qquad 0\le i<j\le d .
+]
+This normalization is necessary because (f) is defined on the unit sphere.
+
+The assertion for arbitrary odd (f) is a known open problem: it is the function-theoretic formulation of **Makeev’s conjecture** for the dual difference body of a regular simplex. Kuperberg proved the equivalence with the constant-width-body problem and proved the result in dimension (3). He also showed that the Euler-class obstruction used in dimension (3) vanishes in every dimension (d\ge4). ([NYJM][1])
+
+The Handbook of Discrete and Computational Geometry continues to state the odd-function formulation as a conjecture and notes that the corresponding homological count is even—and the primary equivariant obstruction disappears—for (d\ge4). A later monograph on constant-width bodies likewise reports confirmation only in dimension (3). I found no subsequent published resolution through July 2026. ([California State University, Northridge][2])
+
+Consequently, a complete proof for all smooth odd functions in even the first case (d=4) would settle an open conjecture. What follows are several completely proved positive results, valid for every (d), including a fairly large class of non-zonal functions and a (C^0)-open set of arbitrary odd functions.
+
+---
+
+# 1. The test-map reduction
+
+Let (\mathcal E) be the vector space of antisymmetric edge-labels
+[
+y=(y_{ij})*{0\le i,j\le d},\qquad y*{ji}=-y_{ij},\qquad y_{ii}=0.
+]
+Thus (\dim \mathcal E=\binom m2).
+
+For (c=(c_0,\dots,c_d)\in V), define
+[
+(\delta c)_{ij}:=\frac{c_i-c_j}{\sqrt2}.
+]
+These are precisely the restrictions of linear functions to the roots.
+
+## Lemma 1 — Exact edge labels
+
+For (y\in\mathcal E), the following are equivalent.
+
+1. There is (c\in V) such that
+   [
+   y_{ij}=\frac{c_i-c_j}{\sqrt2}
+   \quad\text{for all }i,j.
+   ]
+2. Every triangle sum vanishes:
+   [
+   y_{ij}+y_{jk}+y_{ki}=0
+   \quad\text{for all distinct }i,j,k.
+   ]
+3. For every antisymmetric (m\times m) matrix (X) satisfying
+   [
+   X\mathbf1=0,
+   ]
+   one has
+   [
+   \sum_{i<j}X_{ij}y_{ij}=0.
+   ]
+
+### Proof
+
+The implication (1\Rightarrow2) follows by telescoping.
+
+Conversely, assume 2. Set (c_0=0) and
+[
+c_i:=\sqrt2,y_{i0}.
+]
+The triangle relation for ((i,j,0)) gives
+[
+y_{ij}+y_{j0}+y_{0i}=0,
+]
+hence
+[
+y_{ij}
+=y_{i0}-y_{j0}
+=\frac{c_i-c_j}{\sqrt2}.
+]
+Subtracting the mean of the (c_i)'s does not change their differences and places (c) in (V).
+
+To prove the equivalence with 3, observe that
+[
+\begin{aligned}
+\sum_{i<j}X_{ij}(c_i-c_j)
+&=\sum_i c_i\sum_jX_{ij}.
+\end{aligned}
+]
+Thus every matrix (X) with (X\mathbf1=0) is orthogonal to every exact edge-label. Conversely, the exact edge-label space has dimension (m-1=d), while
+[
+\mathcal C:={X:X^T=-X,\ X\mathbf1=0}
+]
+has dimension
+[
+\binom m2-(m-1)=\binom d2.
+]
+Hence (\mathcal C) is exactly the orthogonal complement of the exact-label space. ∎
+
+The space (\mathcal C) is naturally the Lie algebra (\mathfrak{so}(V)): extend a skew operator on (V) by zero on (\mathbb R\mathbf1).
+
+For an odd continuous (f), define
+[
+y^f(A)*{ij}:=f(Au*{ij}),\qquad A\in SO(V),
+]
+and let
+[
+\mathcal T_f(A):=\operatorname{proj}_{\mathcal C}y^f(A)\in\mathcal C.
+]
+
+## Corollary 2 — Test-map formulation
+
+The desired conclusion holds for (f) if and only if
+[
+\mathcal T_f(A)=0
+]
+for some (A\in SO(V)).
+
+### Proof
+
+If (\mathcal T_f(A)=0), Lemma 1 gives (c\in V) such that
+[
+f(Au_{ij})=c\cdot u_{ij}.
+]
+Taking (b=Ac) gives
+[
+c\cdot u_{ij}=Ac\cdot Au_{ij}=b\cdot Au_{ij}.
+]
+The converse is immediate. ∎
+
+Notice the dimension equality
+[
+\dim SO(d)=\binom d2=\dim\mathcal C.
+]
+This is the source of the degree/Euler-class approach.
+
+Under the rotation group of the (A_d) root system, (\mathcal T_f) becomes a section of a rank-(\binom d2) bundle over a finite quotient of (SO(d)). The target representation is the adjoint representation twisted by the character recording global root inversion. Since the adjoint factor extends to (SO(d)), this bundle is a direct sum of copies of a line bundle. Kuperberg’s calculation shows that its Euler class is nonzero for (d=3) but vanishes for (d\ge4). This explains precisely why the known topological proof stops at dimension (3); it neither proves nor disproves the assertion in higher dimensions. ([NYJM][1])
+
+---
+
+# 2. A complete theorem for every odd cubic
+
+The following result holds in every dimension, including all (d>3).
+
+## Theorem 3 — Odd polynomials of degree at most three
+
+Let (d\ge2). Suppose
+[
+f(x)=P(x)+\ell(x),\qquad x\in S(V),
+]
+where (P) is an arbitrary homogeneous cubic polynomial on (V) and (\ell) is linear. Then there exist (A\in SO(V)) and (b\in V) such that
+[
+f(Au_{ij})=b\cdot Au_{ij}
+\qquad\text{for every }i<j.
+]
+
+Equivalently, the conjecture holds for every odd function whose spherical-harmonic expansion has only degrees (1) and (3).
+
+## Proof
+
+Define the distinguished cubic
+[
+p(x):=\sum_{i=0}^{d}x_i^3,\qquad x=(x_0,\dots,x_d)\in V.
+]
+
+We first establish a tensor identity.
+
+Every cubic (Q) on (V) has a unique symmetric trilinear polarization (T_Q) satisfying
+[
+Q(x)=T_Q(x,x,x).
+]
+Extend (T_Q) to (\mathbb R^m) by projecting each argument orthogonally onto (V). Write
+[
+(T_Q)*{abc}:=T_Q(e_a,e_b,e_c).
+]
+Equip the space of cubics with the (SO(V))-invariant tensor inner product
+[
+\langle Q,R\rangle
+:=\sum*{a,b,c=0}^{d}(T_Q)*{abc}(T_R)*{abc}.
+]
+
+Let (SO(V)) act on cubics by
+[
+(g\cdot Q)(x):=Q(g^{-1}x).
+]
+For (X\in\mathfrak{so}(V)), the infinitesimal action on (p) is
+[
+\begin{aligned}
+(X\cdot p)(x)
+&=\left.\frac{d}{dt}\right|*{t=0}p(e^{-tX}x)\
+&=-3\sum*{i,j}X_{ij}x_i^2x_j.
+\end{aligned}
+]
+Consequently,
+[
+\langle Q,X\cdot p\rangle
+=-3\sum_{i,j}X_{ij}(T_Q)_{iij}.
+\tag{2.1}
+]
+
+On the other hand,
+[
+Q(e_i-e_j)
+=(T_Q)*{iii}
+-3(T_Q)*{iij}
++3(T_Q)*{ijj}
+-(T_Q)*{jjj}.
+]
+Therefore
+[
+\begin{aligned}
+\sum_{i<j}X_{ij}Q(e_i-e_j)
+&=\frac12\sum_{i,j}X_{ij}
+\bigl((T_Q)*{iii}
+-3(T_Q)*{iij}\
+&\hspace{40mm}
++3(T_Q)*{ijj}
+-(T_Q)*{jjj}\bigr).
+\end{aligned}
+]
+The terms containing ((T_Q)*{iii}) and ((T_Q)*{jjj}) vanish because (X\mathbf1=0). Moreover,
+[
+\sum_{i,j}X_{ij}(T_Q)*{ijj}
+=-\sum*{i,j}X_{ij}(T_Q)*{iij},
+]
+by interchanging (i) and (j), using (X*{ji}=-X_{ij}) and the symmetry of (T_Q). Hence
+[
+\sum_{i<j}X_{ij}Q(e_i-e_j)
+=-3\sum_{i,j}X_{ij}(T_Q)*{iij}.
+]
+Together with (2.1), this gives the central identity
+[
+\boxed{;
+\langle Q,X\cdot p\rangle
+=\sum*{i<j}X_{ij}Q(e_i-e_j)
+=2\sqrt2\sum_{i<j}X_{ij}Q(u_{ij}).
+;}
+\tag{2.2}
+]
+
+Now consider the continuous function
+[
+\Psi:SO(V)\longrightarrow\mathbb R,
+\qquad
+\Psi(A):=\langle P,A\cdot p\rangle.
+]
+Since (SO(V)) is compact, (\Psi) has a maximum at some (A_0).
+
+For every (X\in\mathfrak{so}(V)),
+[
+\begin{aligned}
+0
+&=\left.\frac{d}{dt}\right|_{t=0}
+\Psi(A_0e^{tX})\
+&=\langle P,A_0\cdot(X\cdot p)\rangle\
+&=\langle A_0^{-1}\cdot P,X\cdot p\rangle,
+\end{aligned}
+]
+where the last equality uses invariance of the tensor inner product.
+
+Put
+[
+Q:=A_0^{-1}\cdot P.
+]
+With our action convention,
+[
+Q(x)=P(A_0x).
+]
+By (2.2),
+[
+\sum_{i<j}X_{ij}P(A_0u_{ij})=0
+\qquad
+\text{for every }X\in\mathcal C.
+]
+Lemma 1 therefore gives (c\in V) such that
+[
+P(A_0u_{ij})
+=\frac{c_i-c_j}{\sqrt2}
+=c\cdot u_{ij}.
+]
+Thus, with (b_P=A_0c),
+[
+P(A_0u_{ij})=b_P\cdot A_0u_{ij}.
+]
+
+Finally, write (\ell(x)=a\cdot x), (a\in V). Then
+[
+\ell(A_0u_{ij})=a\cdot A_0u_{ij}.
+]
+Taking
+[
+b:=A_0c+a
+]
+gives
+[
+\begin{aligned}
+b\cdot A_0u_{ij}
+&=c\cdot u_{ij}+a\cdot A_0u_{ij}\
+&=P(A_0u_{ij})+\ell(A_0u_{ij})\
+&=f(A_0u_{ij}),
+\end{aligned}
+]
+as required. ∎
+
+### Remark
+
+This proof is genuinely dimension-independent. The key fact is the exact variational identity (2.2): the cycle defect of a cubic is the derivative of its correlation with the symmetric cubic (p=\sum x_i^3).
+
+---
+
+# 3. An open set of arbitrary odd functions
+
+The cubic theorem is stable: the property is not confined to polynomials.
+
+## Theorem 4 — Uniform stability near (\sum x_i^3)
+
+For every (d\ge2), there exists (\varepsilon_d>0) such that every continuous odd
+[
+f:S(V)\to\mathbb R
+]
+satisfying
+[
+\left|f-p\right|*\infty<\varepsilon_d,
+\qquad
+p(x)=\sum*{i=0}^{d}x_i^3,
+]
+has the required rotation (A) and linear function (b).
+
+The same conclusion holds in a neighborhood of every nonzero scalar multiple or rotation of (p), and adding an arbitrary linear function does not affect the assertion.
+
+## Proof
+
+For (f\in C_{\mathrm{odd}}(S(V))), let
+[
+\mathcal T_f(A)
+=\operatorname{proj}*{\mathcal C}
+\bigl(f(Au*{ij})\bigr)_{i<j}.
+]
+
+Since
+[
+p(u_{ij})
+=\left(\frac1{\sqrt2}\right)^3
++\left(-\frac1{\sqrt2}\right)^3
+=0,
+]
+we have
+[
+\mathcal T_p(I)=0.
+]
+
+We calculate the derivative at (I). Let (X\in\mathfrak{so}(V)=\mathcal C). For (u=u_{ij}),
+[
+dp_u(Xu)
+=3\sum_k u_k^2(Xu)*k
+=\frac32\bigl((Xu)*i+(Xu)*j\bigr).
+]
+Now
+[
+(Xu)*i=-\frac{X*{ij}}{\sqrt2},
+\qquad
+(Xu)*j=-\frac{X*{ij}}{\sqrt2}.
+]
+Consequently,
+[
+dp*{u*{ij}}(Xu*{ij})
+=-\frac{3}{\sqrt2}X_{ij}.
+]
+The resulting edge-label already belongs to (\mathcal C), so
+[
+D\mathcal T_p(I)[X]
+=-\frac3{\sqrt2}X.
+\tag{3.1}
+]
+In particular, (D\mathcal T_p(I)) is an isomorphism.
+
+Choose a sufficiently small ball (B) about (0) in (\mathfrak{so}(V)) such that the exponential map is injective on (\overline B) and the map
+[
+F_p(X):=\mathcal T_p(e^X)
+]
+has no zero on (\partial B). By (3.1), its local Brouwer degree at (0) is
+[
+\deg(F_p,B,0)=\operatorname{sgn}
+\det!\left(-\frac3{\sqrt2}I\right)\ne0.
+]
+
+Let
+[
+\eta:=\min_{X\in\partial B}|F_p(X)|>0.
+]
+If (N=\binom{d+1}{2}), then for every (A),
+[
+\begin{aligned}
+|\mathcal T_f(A)-\mathcal T_p(A)|
+&\le
+\left(\sum_{i<j}
+|f(Au_{ij})-p(Au_{ij})|^2\right)^{1/2}\
+&\le \sqrt N,|f-p|*\infty.
+\end{aligned}
+]
+Choose
+[
+\varepsilon_d<\frac{\eta}{2\sqrt N}.
+]
+For the straight-line homotopy
+[
+f_t=p+t(f-p),\qquad 0\le t\le1,
+]
+the maps (F*{f_t}) remain nonzero on (\partial B). Homotopy invariance of Brouwer degree gives
+[
+\deg(F_f,B,0)=\deg(F_p,B,0)\ne0.
+]
+The existence property of the Brouwer degree therefore yields (X\in B) with
+[
+F_f(X)=0.
+]
+Taking (A=e^X) and applying Lemma 1 gives the required (b). ∎
+
+Thus, in every dimension (d>3), the set of odd functions satisfying the conclusion contains a nonempty open subset of the entire Banach space (C_{\mathrm{odd}}(S^{d-1})).
+
+---
+
+# 4. All zonal odd functions
+
+There is another infinite-dimensional class for which the conjecture holds.
+
+## Theorem 5 — Zonal functions
+
+Let (d\ge2), let (a\in S(V)), and let (h:[-1,1]\to\mathbb R) be continuous and odd. Then every function
+[
+f(x)=h(a\cdot x)+\ell(x),
+]
+where (\ell) is linear, satisfies the conclusion.
+
+## Proof
+
+It is enough to treat (\ell=0), since a linear summand can simply be added to (b).
+
+Choose any nontrivial partition
+[
+{0,\dots,d}=S\sqcup T.
+]
+Let (s=|S|), (t=|T|), so (s+t=m). Define (c\in V) by
+[
+c_i=
+\begin{cases}
+\alpha:=\sqrt{\dfrac{t}{sm}},&i\in S,[2mm]
+\beta:=-\sqrt{\dfrac{s}{tm}},&i\in T.
+\end{cases}
+]
+Then
+[
+\sum_i c_i=0,\qquad |c|=1.
+]
+Since (SO(V)) acts transitively on (S(V)), choose (A\in SO(V)) such that
+[
+A^Ta=c.
+]
+Therefore
+[
+a\cdot Au_{ij}
+=c\cdot u_{ij}
+=\frac{c_i-c_j}{\sqrt2}.
+]
+
+Put
+[
+\kappa:=\frac{\alpha-\beta}{\sqrt2}>0.
+]
+The quantity (a\cdot Au_{ij}) is:
+
+* (0) if (i,j) lie in the same part;
+* (\kappa) if (i\in S,j\in T);
+* (-\kappa) if (i\in T,j\in S).
+
+Since (h) is odd,
+[
+f(Au_{ij})=
+\begin{cases}
+0,&i,j\text{ in the same part},\
+h(\kappa),&i\in S,j\in T,\
+-h(\kappa),&i\in T,j\in S.
+\end{cases}
+]
+Define (z\in\mathbb R^m) by
+[
+z_i=
+\begin{cases}
+\sqrt2,h(\kappa),&i\in S,\
+0,&i\in T.
+\end{cases}
+]
+After subtracting its mean, we may assume (z\in V), without changing any difference (z_i-z_j). Then
+[
+f(Au_{ij})=\frac{z_i-z_j}{\sqrt2}=z\cdot u_{ij}.
+]
+Taking (b=Az) proves
+[
+f(Au_{ij})=b\cdot Au_{ij}.
+]
+∎
+
+---
+
+# Conclusion
+
+The unrestricted assertion for every smooth odd (f) remains open for every (d>3); in particular, there is no currently verified complete proof for (d=4). The primary Euler-class method is known to fail there, but its failure does not produce a counterexample because arbitrary nowhere-zero sections of the test bundle need not arise from evaluating one scalar function on rotated roots. ([NYJM][1])
+
+The complete results proved above are:
+
+[
+\boxed{\text{The assertion holds in every dimension for all odd cubics plus linear functions.}}
+]
+
+[
+\boxed{\text{It holds on a nonempty (C^0)-open set of arbitrary odd functions in every dimension.}}
+]
+
+[
+\boxed{\text{It holds for every continuous zonal odd function, with an arbitrary linear summand.}}
+]
+
+The cubic theorem is particularly broad: it covers the full (\operatorname{Sym}^3(V^*)) representation, not merely symmetric or one-variable examples, and its proof uses a dimension-independent variational normal-form argument.
+
+[1]: https://nyjm.albany.edu/j/1999/5-6p.pdf "https://nyjm.albany.edu/j/1999/5-6p.pdf"
+[2]: https://www.csun.edu/~ctoth/Handbook/chap21.pdf "https://www.csun.edu/~ctoth/Handbook/chap21.pdf"

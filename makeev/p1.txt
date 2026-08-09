@@ -1,0 +1,8 @@
+Consider the following research-level math question.
+
+Let $\pm v_1,\ldots,\pm v_n\in\mathbb R^d$ ($d>3$) be vectors of the $A_d$ root system, where $n=d(d+1)/2$. These are the vectors $\{e_i-e_j:i\ne j\}\subset\{x\in\mathbb R^{d+1}:\sum_{i=0}^d x_i=0\}\cong\mathbb R^d$.
+Is it true that for every smooth odd function $f:S^{d-1}\to\mathbb R$, there exist $A\in SO(d)$ and $b\in\mathbb R^d$ such that $f(Av_i)=b\cdot Av_i$ for $1\le i\le n$?
+
+Note that the statement is known to be true if $d\le 3$. Even a partial result, answering the question for some, or even one single, $d>3$, would be great.
+
+Carefully consider the question and provide a complete and rigorous proof. Provide either complete proofs or careful citations for all intermediate statements in the proof. Work very hard to prove the question and do not return until a complete proof is achieved. Make sure to structure the proof with careful lemmas and theorem statements.

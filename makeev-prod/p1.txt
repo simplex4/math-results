@@ -1,0 +1,5 @@
+I asked an AI to resolve Makeev's conjecture for some dimension $d>3$:
+
+Let $\pm v_1,\ldots,\pm v_n\in\mathbb R^d$ ($d>3$) be vectors of the $A_d$ root system, where $n=d(d+1)/2$. These are the vectors $\{e_i-e_j:i\ne j\}\subset\{x\in\mathbb R^{d+1}:\sum_{i=0}^d x_i=0\}\cong\mathbb R^d$. Is it true that for every smooth odd function $f:S^{d-1}\to\mathbb R$, there exist $A\in SO(d)$ and $b\in\mathbb R^d$ such that $f(Av_i)=b\cdot Av_i$ for $1\le i\le n$?
+
+The AI produced some partial results in part1.txt, and a counterexample in dimension 4 in part2.txt. (These are copied from the AI chat window.) Please check if there are any errors in the proof.

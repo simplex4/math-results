@@ -1,0 +1,1022 @@
+# Negative answer in dimension (4)
+
+The statement is **false for (d=4)**.
+
+The counterexample below appears to be new: Kuperberg proved the (d=3) case and found that the homological obstruction vanishes in higher dimensions, leaving the geometric question inconclusive; a paper posted on July 11, 2026 still states the regular-(A_d) assertion as Makeev’s conjecture. ([arXiv][1]) Because the argument would therefore refute an open conjecture, it deserves independent checking. The proof is self-contained, and the longer polynomial identities have also been checked by exact symbolic algebra.
+
+As in the attachment, the roots must be normalized:
+[
+u_{ij}=\frac{e_i-e_j}{\sqrt2}.
+]
+The exact-edge-label criterion from the attachment is used below, as is its cubic variational identity.   
+
+---
+
+## Theorem
+
+Identify
+[
+\mathbb R^4\simeq\mathbb C^2,
+\qquad
+S^3={(z_1,z_2):|z_1|^2+|z_2|^2=1}.
+]
+Put
+[
+W(z)=z_1^2\overline {z_2},
+\qquad
+Q(z)=\operatorname{Re}W(z),
+\qquad
+H(z)=|z_1|^2\operatorname{Im}W(z).
+]
+
+There exists (\varepsilon _0>0) such that, for every real
+[
+0<|\varepsilon|<\varepsilon *0,
+]
+the smooth odd function
+[
+\boxed{;
+f*\varepsilon(z_1,z_2)
+======================
+
+\operatorname{Re}(z_1^2\overline {z_2})
++
+\varepsilon |z_1|^2\operatorname{Im}(z_1^2\overline {z_2})
+;}
+\tag{1}
+]
+has the following property:
+
+> There are no (A\in SO(4)) and (b\in\mathbb R^4) such that
+> [
+> f_\varepsilon(Au_{ij})=b\cdot Au_{ij}
+> \qquad(0\leq i<j\leq4).
+> ]
+
+Thus the answer to the question is **no already for (d=4)**.
+
+---
+
+# Proof
+
+## 1. A cyclic model of the (A_4) roots
+
+Let
+[
+\zeta=e^{2\pi i/5}
+]
+and define five vectors in (\mathbb C^2) by
+[
+q_j=\sqrt{\frac25},(\zeta^j,\zeta^{2j}),
+\qquad j=0,\ldots,4.
+\tag{2}
+]
+
+### Lemma 1 — The (q_j) form a regular (4)-simplex
+
+They satisfy
+[
+\sum_{j=0}^4q_j=0
+]
+and
+[
+\langle q_i,q_j\rangle
+======================
+
+\begin{cases}
+\frac45,&i=j,[1mm]
+-\frac15,&i\ne j.
+\end{cases}
+\tag{3}
+]
+Consequently
+[
+u_{ij}:=\frac{q_i-q_j}{\sqrt2}
+\qquad (i\ne j)
+\tag{4}
+]
+are unit vectors forming an (A_4) root system.
+
+#### Proof
+
+The sum vanishes because
+[
+\sum_{j=0}^4\zeta^j=\sum_{j=0}^4\zeta^{2j}=0.
+]
+Moreover,
+[
+\langle q_i,q_j\rangle
+======================
+
+\frac25\operatorname{Re}
+\left(\zeta^{i-j}+\zeta^{2(i-j)}\right).
+]
+For (i=j) this equals (4/5). For (i\ne j),
+[
+\cos\frac{2\pi(i-j)}5+\cos\frac{4\pi(i-j)}5=-\frac12,
+]
+so the inner product is (-1/5). Hence
+[
+|q_i-q_j|^2=\frac45+\frac45-2\left(-\frac15\right)=2,
+]
+which proves (4) consists of unit vectors.
+
+The isometry
+[
+e_j-\frac15\mathbf1\longmapsto q_j
+]
+identifies these roots with the usual normalized (A_4) roots. An odd permutation of the five vertices reverses orientation while leaving the unoriented root system invariant, so the isometry may be chosen orientation-preserving. ∎
+
+---
+
+## 2. Exact edge labels
+
+For an odd function (F:S^3\to\mathbb R) and (g\in SO(4)), define the skew matrix
+[
+Y_F(g)*{ij}=F(gu*{ij}),
+\qquad
+Y_F(g)*{ji}=-Y_F(g)*{ij}.
+\tag{5}
+]
+Let
+[
+\Pi=I-\frac15\mathbf1\mathbf1^{T}.
+]
+
+### Lemma 2 — Cycle-matrix criterion
+
+The following are equivalent:
+
+1. there exists (c\in\mathbb R^4) such that
+   [
+   Y_F(g)*{ij}=c\cdot u*{ij};
+   ]
+2. there exist real numbers (\rho_i) such that
+   [
+   Y_F(g)_{ij}=\rho_i-\rho_j;
+   ]
+3. one has
+   [
+   \Pi Y_F(g)\Pi=0.
+   \tag{6}
+   ]
+
+#### Proof
+
+The equivalence of the first two assertions follows from the simplex frame. Indeed, after subtracting its mean we may suppose (\sum_i\rho_i=0), and then
+[
+c=\sqrt2\sum_i\rho_iq_i
+]
+satisfies
+[
+c\cdot q_j=\sqrt2,\rho_j,
+\qquad
+c\cdot u_{ij}=\rho_i-\rho_j.
+]
+
+If (Y_{ij}=\rho_i-\rho_j), then
+[
+Y=\rho\mathbf1^T-\mathbf1\rho^T,
+]
+and hence (\Pi Y\Pi=0).
+
+Conversely, suppose (\Pi Y\Pi=0), and put
+[
+\rho_i=\frac15\sum_jY_{ij}.
+]
+Writing (J_0=\frac15\mathbf1\mathbf1^T), skew-symmetry gives (J_0YJ_0=0), and
+[
+0=(I-J_0)Y(I-J_0)
+=Y-J_0Y-YJ_0.
+]
+Now
+[
+(J_0Y)*{ij}=-\rho_j,
+\qquad
+(YJ_0)*{ij}=\rho_i,
+]
+so
+[
+Y_{ij}=\rho_i-\rho_j.
+]
+∎
+
+We call such a label matrix **exact**.
+
+---
+
+## 3. A cubic annihilating functional
+
+Consider the one-parameter subgroup
+[
+h_\theta(z_1,z_2)
+=================
+
+(e^{i\theta}z_1,e^{2i\theta}z_2).
+\tag{7}
+]
+Its infinitesimal generator is the skew operator
+[
+J(z_1,z_2)=(iz_1,2iz_2).
+\tag{8}
+]
+Both (Q) and (\operatorname{Im}W) are invariant under (h_\theta).
+
+For (g\in SO(4)), write
+[
+p_i=gq_i
+]
+and define
+[
+X(g)*{ij}=\langle p_i,Jp_j\rangle.
+\tag{9}
+]
+Since (J) is skew, (X(g)) is skew. Also,
+[
+\sum_jX(g)*{ij}
+===============
+
+\left\langle p_i,J\sum_jp_j\right\rangle
+=0.
+\tag{10}
+]
+Define
+[
+\Lambda_g(y)=\sum_{i<j}X(g)*{ij}y*{ij}.
+\tag{11}
+]
+
+By (10), (\Lambda_g) annihilates every exact edge label:
+[
+\Lambda_g\bigl((\rho_i-\rho_j)_{ij}\bigr)=0.
+\tag{12}
+]
+
+### Lemma 3 — Global cubic annihilation
+
+For every (g\in SO(4)),
+[
+\Lambda_g\bigl((Q(gu_{ij}))*{ij}\bigr)=0
+\tag{13}
+]
+and likewise
+[
+\Lambda_g\bigl((\operatorname{Im}W(gu*{ij}))_{ij}\bigr)=0.
+\tag{14}
+]
+
+#### Proof
+
+Let
+[
+P_3(x)=\sum_{i=0}^4\langle q_i,x\rangle^3.
+]
+For a homogeneous cubic (C) and (K\in\mathfrak {so}(4)), the cubic identity proved in the attachment becomes
+[
+\bigl\langle C,K\cdot P_3\bigr\rangle
+=====================================
+
+2\sqrt2\sum_{i<j}
+\langle q_i,Kq_j\rangle C(u_{ij}),
+\tag{15}
+]
+where the inner product is the invariant inner product on symmetric cubic tensors and
+[
+(K\cdot C)(x)=-dC_x(Kx).
+]
+Indeed, if (T_C) is the symmetric trilinear polarization of (C), both sides of (15) are
+[
+-3\sum_{i,j}K_{ij}(T_C)_{iij}.
+]
+
+Take
+[
+K=g^{-1}Jg,
+\qquad
+C=Q\circ g.
+]
+Then
+[
+\langle q_i,Kq_j\rangle
+=======================
+
+\langle p_i,Jp_j\rangle=X(g)*{ij}.
+]
+Moreover,
+[
+K\cdot(Q\circ g)=(J\cdot Q)\circ g=0
+]
+because (Q) is invariant under (h*\theta). Since infinitesimal orthogonal actions are skew-adjoint,
+[
+\bigl\langle Q\circ g,K\cdot P_3\bigr\rangle
+============================================
+
+-\bigl\langle K\cdot(Q\circ g),P_3\bigr\rangle
+=0.
+]
+Equation (15) gives (13). The same proof applies to (\operatorname{Im}W). ∎
+
+The point is that (\Lambda_g) vanishes on the cubic part for **every** (g), not just when the cubic labels are exact.
+
+---
+
+# 4. The transversality lemma
+
+The main new ingredient is the following.
+
+### Lemma 4
+
+Suppose
+[
+\bigl(Q(gu_{ij})\bigr)*{i<j}
+]
+is exact. Then
+[
+\boxed{;
+\Lambda_g\bigl((H(gu*{ij}))_{i<j}\bigr)\ne0.
+;}
+\tag{16}
+]
+
+We now prove this algebraically.
+
+---
+
+## 4.1. Frame coordinates
+
+Write
+[
+p_i=(a_i,b_i)\in\mathbb C^2
+]
+and let
+[
+a=(a_0,\ldots,a_4),\qquad
+b=(b_0,\ldots,b_4)\in\mathbb C^5.
+]
+
+Because the five (p_i) form the regular simplex (3), the four real coordinate columns of the (5\times4) matrix with rows (p_i) are orthonormal and perpendicular to (\mathbf1). It follows that
+[
+\sum_i a_i=\sum_i b_i=0,
+\tag{17}
+]
+[
+\sum_i a_i^2=\sum_i b_i^2
+=\sum_i a_ib_i
+=\sum_i a_i\overline {b_i}=0,
+\tag{18}
+]
+[
+\sum_i|a_i|^2=\sum_i|b_i|^2=2,
+\tag{19}
+]
+and, coordinatewise,
+[
+|a_i|^2+|b_i|^2=\frac45.
+\tag{20}
+]
+
+Consequently
+[
+\mathbf1,a,b,\bar a,\bar b
+\tag{21}
+]
+are mutually orthogonal for the Hermitian inner product on (\mathbb C^5), with squared norms (5,2,2,2,2), respectively. Thus every (x\in\mathbb C^5) expands as
+[
+x=
+\frac{\sum_i x_i}{5}\mathbf1
++\frac12\Bigl(
+\langle a,x\rangle a
++\langle b,x\rangle b
++\langle\bar a,x\rangle\bar a
++\langle\bar b,x\rangle\bar b
+\Bigr).
+\tag{22}
+]
+
+All products of vectors below are coordinatewise. For example,
+[
+a^2=(a_i^2)_i,\qquad
+a\bar b=(a_i\bar b_i)*i.
+]
+For (u,v\in\mathbb C^5), put
+[
+(u\wedge v)*{ij}=u_iv_j-v_iu_j.
+\tag{23}
+]
+
+---
+
+## 4.2. The cycle equations for the cubic (Q)
+
+Ignoring the harmless nonzero factor (1/(2\sqrt2)), the complex edge values of (W) are
+[
+\widetilde Y_{ij}
+=================
+
+(a_i-a_j)^2(\bar b_i-\bar b_j).
+\tag{24}
+]
+Modulo an exact matrix, expansion of (24) gives
+[
+\Pi\widetilde Y\Pi
+==================
+
+-a^2\wedge\bar b
++2a\wedge(a\bar b).
+\tag{25}
+]
+Indeed, the term
+[
+a_i^2\bar b_i-a_j^2\bar b_j
+]
+is exact; the remaining terms are precisely the right-hand side of (25).
+
+Define
+[
+s=\frac12\sum_i|a_i|^2a_i,
+\qquad
+\lambda=\frac12\sum_i|a_i|^2\bar b_i,
+\tag{26}
+]
+[
+m=\sum_i a_i^2\bar b_i,
+\qquad
+n=\sum_i a_i^3,
+\qquad
+u=\frac12\sum_i a_i\bar b_i^2,
+\qquad
+\ell=\frac12\sum_i a_i^2b_i.
+\tag{27}
+]
+Formula (22) gives
+[
+a^2
+===
+
+sa+\frac m2b+\frac n2\bar a+\ell\bar b
+\tag{28}
+]
+and
+[
+a\bar b
+=======
+
+\lambda a+ub+\frac m2\bar a-s\bar b.
+\tag{29}
+]
+Substitution into (25) yields
+[
+\begin{aligned}
+\omega:=\Pi\widetilde Y\Pi
+={}&2u,a\wedge b
++m,a\wedge\bar a
+-3s,a\wedge\bar b\
+&-\frac m2b\wedge\bar b
+-\frac n2\bar a\wedge\bar b.
+\end{aligned}
+\tag{30}
+]
+
+Exactness of the real (Q)-labels is precisely
+[
+\operatorname{Re}\omega=0.
+]
+Because (a,b,\bar a,\bar b) are a complex basis of (\mathbf1^\perp_\mathbb C), their six wedges are linearly independent. Comparing (30) with its complex conjugate gives
+[
+\boxed{;
+s=0,\qquad m\in\mathbb R,\qquad 4u=\bar n.
+;}
+\tag{31}
+]
+
+---
+
+## 4.3. The coordinatewise multiplication table
+
+Replacing (g) by (h_\theta g) does not change any (Q)- or (H)-value, does not change (X(g)), and sends
+[
+\lambda\longmapsto e^{-2i\theta}\lambda.
+]
+We may therefore suppose
+[
+\lambda=t\geq0.
+\tag{32}
+]
+
+In addition to (m,n,\ell), define
+[
+v=\sum_i a_ib_i^2,
+\qquad
+k=\sum_i b_i^3.
+\tag{33}
+]
+
+Using (20), (22), and (31), all coordinatewise products of the four basis vectors are:
+
+[
+\begin{aligned}
+a\bar a&=\frac25\mathbf1+t b+t\bar b,\
+b\bar b&=\frac25\mathbf1-t b-t\bar b,[1mm]
+a^2&=\frac m2b+\frac n2\bar a+\ell\bar b,\
+\bar a^2&=\frac m2\bar b+\frac{\bar n}{2}a+\bar\ell b,[1mm]
+a\bar b&=t a+\frac{\bar n}{4}b+\frac m2\bar a,\
+\bar a b&=t\bar a+\frac n4\bar b+\frac m2a,[1mm]
+ab&=t a+\ell\bar a+\frac v2\bar b,\
+\bar a\bar b&=t\bar a+\bar\ell a+\frac{\bar v}{2}b,[1mm]
+b^2&=\frac n4a-tb+\frac v2\bar a+\frac k2\bar b,\
+\bar b^2&=\frac{\bar n}{4}\bar a-t\bar b
++\frac{\bar v}{2}a+\frac{\bar k}{2}b.
+\end{aligned}
+\tag{34}
+]
+
+For example, the coefficient of (b) in (a\bar a) is
+[
+\frac12\sum_i\bar b_i|a_i|^2=t,
+]
+while the coefficient of (\bar b) is its conjugate. The second identity follows from (20). Every other coefficient in (34) is obtained in exactly the same way from (22).
+
+Coordinatewise multiplication is associative. Comparing coefficients in (34) gives the following necessary equations:
+
+[
+3mn=4tv,
+\tag{E1}
+]
+[
+\bar n,v+16\ell t+8mt=0,
+\tag{E2}
+]
+[
+-2km+24\ell t-n^2=0,
+\tag{E3}
+]
+[
+-kt+\ell m+4t^2=0,
+\tag{E4}
+]
+[
+\bar n,k+mn+8tv=0,
+\tag{E5}
+]
+[
+20|\ell|^2+5m^2+5|n|^2-40t^2=8,
+\tag{E6}
+]
+[
+16|\ell|^2-4m^2-|n|^2+4|v|^2=0,
+\tag{E7}
+]
+[
+20|\ell|^2+60t^2+5|v|^2=8.
+\tag{E8}
+]
+
+More explicitly, these are obtained as follows:
+[
+\begin{array}{c|c|c}
+\text{associativity identity}&\text{coefficient}&\text{equation}\ \hline
+(a^2)b=a(ab)&a,b,\bar b&\text{(E1), (E2), (E3)}\
+(ab)b=a(b^2)&a,b&\text{(E4), (E5)}\
+(a^2)\bar a=a(a\bar a)&a&\text{(E6)}\
+(ab)\bar a=a(b\bar a)&b&\text{(E7)}\
+(ab)\bar b=a(b\bar b)&a&\text{(E8)}.
+\end{array}
+\tag{35}
+]
+
+---
+
+## 4.4. Classification of the possible cubic zeros
+
+We need only the following consequences of (E1)–(E8).
+
+### Case I: (t=0)
+
+Equation (E1) gives (mn=0).
+
+If (m=0), then (E3) gives (n=0). Equations (E6) and (E7) would then say
+[
+20|\ell|^2=8,
+\qquad
+16|\ell|^2+4|v|^2=0,
+]
+which is impossible.
+
+Thus (m\ne0), so (n=0). Equations (E4) and (E3) give
+[
+\ell=k=0.
+]
+Finally,
+[
+m^2=\frac85,
+\qquad
+|v|^2=m^2.
+\tag{36}
+]
+
+### Case II: (t>0) and (n=0)
+
+Equation (E1) gives (v=0), and (E2) gives
+[
+\ell=-\frac m2.
+\tag{37}
+]
+Here (m\ne0), since otherwise (34) would give (a^2=0), contrary to (\sum|a_i|^2=2).
+
+Equations (E3) and (E4) now give
+[
+k=-6t,
+\qquad
+m^2=20t^2.
+]
+Equation (E8) therefore yields
+[
+t^2=\frac1{20},
+\qquad
+m^2=1.
+\tag{38}
+]
+
+### Case III: (t>0) and (n\ne0)
+
+First (m\ne0): otherwise (E1), (E2), and (E3) would successively give
+[
+v=0,\qquad \ell=0,\qquad n^2=0.
+]
+
+Put
+[
+q=\frac mt,
+\qquad
+h=\frac{|n|^2}{t^2}>0.
+\tag{39}
+]
+Equations (E1) and (E2) give
+[
+v=\frac{3mn}{4t},
+\qquad
+\ell=-\frac{m(32+3h)}{64}.
+\tag{40}
+]
+In particular (\ell) is real.
+
+Equation (E5) gives
+[
+k=-7m\frac n{\bar n}.
+\tag{41}
+]
+On the other hand, (E4) implies that (k) is real. Hence
+[
+\sigma:=\frac n{\bar n}\in{1,-1}.
+\tag{42}
+]
+Thus
+[
+k=-7m\sigma,
+\qquad
+n^2=\sigma|n|^2.
+]
+
+After division by appropriate powers of (t), equations (E4) and (E3) become
+[
+3hq^2+32q^2-448\sigma q-256=0,
+\tag{43}
+]
+[
+-9hq-8\sigma h+112\sigma q^2-96q=0.
+\tag{44}
+]
+
+Eliminating (h) gives
+[
+(q-4)(q+2)(21q^2+42q+16)=0
+\qquad(\sigma=1),
+\tag{45}
+]
+and
+[
+(q+4)(q-2)(21q^2-42q+16)=0
+\qquad(\sigma=-1).
+\tag{46}
+]
+
+The roots (q=-2\sigma) give (h=-64) and are impossible. One root of each quadratic also gives
+[
+h=\frac{-74-14\sqrt{105}}3<0.
+]
+The candidates (q=4\sigma) give (h=32). But then, from (40) and (E1),
+[
+\frac{|\ell|^2}{t^2}=64,
+\qquad
+\frac{|v|^2}{t^2}=288,
+]
+and the left side of (E7), divided by (t^2), equals
+[
+16\cdot64-4\cdot16-32+4\cdot288=2080,
+]
+a contradiction.
+
+The only remaining possibility is
+[
+q=-\sigma\left(1-\frac{\sqrt{105}}{21}\right),
+\qquad
+h=\frac{-74+14\sqrt{105}}3.
+\tag{47}
+]
+Equation (E6) then gives
+[
+t^2=\frac{7(5\sqrt{105}-33)}{1440},
+\tag{48}
+]
+and therefore
+[
+m^2=\frac{49\sqrt{105}-477}{1080}.
+\tag{49}
+]
+
+This exhausts all possibilities allowed by the cubic exactness equations.
+
+---
+
+## 4.5. Evaluation of the quintic transverse functional
+
+For the actual root
+[
+gu_{ij}
+=======
+
+\frac{p_i-p_j}{\sqrt2},
+]
+we have
+[
+|z_1|^2W(z)
+===========
+
+\frac1{4\sqrt2}
+(a_i-a_j)^3(\bar a_i-\bar a_j)(\bar b_i-\bar b_j).
+\tag{50}
+]
+Define
+[
+\Sigma
+======
+
+\sum_{i<j}X(g)_{ij}
+(a_i-a_j)^3(\bar a_i-\bar a_j)(\bar b_i-\bar b_j).
+\tag{51}
+]
+Then
+[
+\Lambda_g(H)=\frac1{4\sqrt2}\operatorname{Im}\Sigma.
+\tag{52}
+]
+
+In the notation of wedges,
+[
+X(g)=\frac i2\bigl(\bar a\wedge a+2\bar b\wedge b\bigr).
+\tag{53}
+]
+Indeed, the (ij)-entry of the right side is
+[
+-\operatorname{Im}(\bar a_i a_j+2\bar b_i b_j)
+=\langle p_i,Jp_j\rangle.
+]
+
+Modulo an exact matrix, expansion of the degree-five edge expression in (51) gives
+[
+\begin{aligned}
+F\equiv{}&
+\bar b\wedge(a^3\bar a)
++\bar a\wedge(a^3\bar b)
+-(\bar a\bar b)\wedge a^3\
+&+3a\wedge(a^2\bar a\bar b)
+-3(a\bar b)\wedge(a^2\bar a)\
+&-3(a\bar a)\wedge(a^2\bar b)
++3(a\bar a\bar b)\wedge a^2.
+\end{aligned}
+\tag{54}
+]
+The omitted exact term is
+[
+(a^3\bar a\bar b)\wedge\mathbf1,
+]
+which is annihilated by (X(g)).
+
+For the bilinear dot product (x\cdot y=\sum_ix_iy_i), one has
+[
+\sum_{i<j}
+(u\wedge v)*{ij}(x\wedge y)*{ij}
+================================
+
+(u\cdot x)(v\cdot y)-(u\cdot y)(v\cdot x).
+\tag{55}
+]
+Every dot product in (55) is determined by (34): it is five times the coefficient of (\mathbf1) in the corresponding coordinatewise product.
+
+Substituting (34), (53), and (54) into (55) gives
+[
+\Sigma=-\frac i{80},\mathcal B_{\rm raw},
+\tag{56}
+]
+where
+[
+\begin{aligned}
+\mathcal B_{\rm raw}={}&
+-960\bar k,\ell t
++160|\ell|^2m
++320\ell t^2
+-120m^3\
+&-75m|n|^2
+-800mt^2
++100m|v|^2
++192m
+-160nt\bar v.
+\end{aligned}
+\tag{57}
+]
+
+In each of Cases I–III, (\ell) is real. The conjugates of (E4) and (E1) give
+[
+\bar k,t=\ell m+4t^2,
+\qquad
+nt\bar v=\frac34m|n|^2.
+\tag{58}
+]
+Using (58), followed by (E6) and (E8), expression (57) simplifies to
+[
+\boxed{;
+\mathcal B
+==========
+
+m\bigl(180m^2+105|n|^2-4400t^2-128\bigr)
+-3520\ell t^2.
+;}
+\tag{59}
+]
+
+We now evaluate (59) in the three cases.
+
+In Case I,
+[
+t=n=\ell=0,\qquad m^2=\frac85,
+]
+so
+[
+\mathcal B=160m\ne0.
+\tag{60}
+]
+
+In Case II,
+[
+n=0,\qquad t^2=\frac1{20},\qquad
+m^2=1,\qquad \ell=-\frac m2,
+]
+and hence
+[
+\mathcal B=-80m\ne0.
+\tag{61}
+]
+
+In Case III, substitution of (40), (47), (48), and (49) gives
+[
+\mathcal B
+==========
+
+60m(75-7\sqrt{105}).
+\tag{62}
+]
+Here (m\ne0), and
+[
+75-7\sqrt{105}>0.
+]
+Thus (62) is nonzero.
+
+Equations (52) and (56) now give
+[
+\Lambda_g(H)
+============
+
+-\frac{\mathcal B}{320\sqrt2}\ne0.
+\tag{63}
+]
+This proves Lemma 4. ∎
+
+---
+
+# 5. A small perturbation removes every zero
+
+We finish the proof of the theorem.
+
+Suppose, contrary to the assertion, that there is no (\varepsilon *0). Then there are nonzero numbers
+[
+\varepsilon*\nu\longrightarrow0
+]
+and rotations (g_\nu\in SO(4)) such that the labels of
+[
+f_{\varepsilon_\nu}=Q+\varepsilon_\nu H
+]
+at the roots (g_\nu u_{ij}) are exact.
+
+Equivalently, by Lemma 2,
+[
+\Pi Y_Q(g_\nu)\Pi
++
+\varepsilon_\nu\Pi Y_H(g_\nu)\Pi
+=0.
+\tag{64}
+]
+
+After passing to a subsequence, compactness of (SO(4)) gives
+[
+g_\nu\longrightarrow g.
+]
+Since (Y_H) is bounded on the compact group, (64) implies
+[
+\Pi Y_Q(g)\Pi=0.
+\tag{65}
+]
+Thus the (Q)-labels at (gu_{ij}) are exact.
+
+On the other hand, exactness of the (f_{\varepsilon_\nu})-labels and (12) give
+[
+0
+=
+
+\Lambda_{g_\nu}(Y_Q(g_\nu))
++
+\varepsilon_\nu\Lambda_{g_\nu}(Y_H(g_\nu)).
+]
+The first term is zero for every (g_\nu) by Lemma 3. Since (\varepsilon_\nu\ne0),
+[
+\Lambda_{g_\nu}(Y_H(g_\nu))=0.
+]
+Passing to the limit,
+[
+\Lambda_g(Y_H(g))=0.
+\tag{66}
+]
+
+But (65) and Lemma 4 imply
+[
+\Lambda_g(Y_H(g))\ne0,
+]
+contradicting (66).
+
+Therefore an (\varepsilon *0>0) exists, and every (f*\varepsilon) in (1) with
+[
+0<|\varepsilon|<\varepsilon _0
+]
+is a counterexample. ∎
+
+---
+
+## A harmonic refinement
+
+The counterexample may be chosen to have only spherical-harmonic degrees (3) and (5).
+
+The cubic
+[
+R(z)=\operatorname{Im}(z_1^2\bar z_2)
+]
+is harmonic. In (\mathbb R^4),
+[
+\Delta\bigl(|z_1|^2R\bigr)=12R,
+\qquad
+\Delta\bigl((|z_1|^2+|z_2|^2)R\bigr)=20R.
+]
+Consequently
+[
+H_5(z)
+======
+
+\left(
+|z_1|^2-\frac35(|z_1|^2+|z_2|^2)
+\right)R(z)
+\tag{67}
+]
+is a homogeneous harmonic quintic.
+
+Lemma 3 also gives (\Lambda_g(R)=0) for every (g), so replacing (H) by (H_5) does not change the transverse functional. Hence, for all sufficiently small nonzero (\varepsilon),
+[
+\boxed{;
+\widetilde f_\varepsilon(z)
+===========================
+
+\operatorname{Re}(z_1^2\bar z_2)
++
+\varepsilon
+\left(|z_1|^2-\frac35\right)
+\operatorname{Im}(z_1^2\bar z_2),
+\quad z\in S^3,
+;}
+\tag{68}
+]
+is also a counterexample.
+
+Thus degree (5) is already enough to destroy the conclusion, whereas the attached argument proves that all functions with only degrees (1) and (3) satisfy it.
+
+The exact symbolic audit of the wedge expansion, the multiplication-table associativity equations, the elimination over (\mathbb Q(\sqrt{105})), and the transverse-functional calculation is here:
+
+[Download the exact symbolic verification script](sandbox:/mnt/data/a4_counterexample_symbolic_check.py)
+
+[1]: https://arxiv.org/abs/math/9809165 "https://arxiv.org/abs/math/9809165"

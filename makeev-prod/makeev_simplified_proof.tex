@@ -1,0 +1,1056 @@
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{mathtools,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[margin=1.08in]{geometry}
+\usepackage{xcolor}
+\definecolor{linkblue}{HTML}{244E73}
+\definecolor{citegreen}{HTML}{315B45}
+\usepackage[
+  colorlinks=true,
+  linkcolor=linkblue,
+  citecolor=citegreen,
+  urlcolor=linkblue,
+  pdfauthor={Working draft},
+  pdftitle={Makeev's regular-simplex conjecture: positive results and a counterexample in dimension four}
+]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\allowdisplaybreaks
+\setlist[enumerate]{leftmargin=2.2em,itemsep=0.25em,topsep=0.4em}
+\setlist[itemize]{leftmargin=2.0em,itemsep=0.25em,topsep=0.4em}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\SO}{\mathrm{SO}}
+\newcommand{\OO}{\mathrm{O}}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\dd}{\mathop{}\!\mathrm d}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\cE}{\mathcal E}
+\newcommand{\cC}{\mathcal C}
+\newcommand{\cT}{\mathcal T}
+\newcommand{\cH}{\mathcal H}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+
+\title[Makeev's conjecture in dimension four]{Makeev's regular-simplex conjecture:\\positive results and a counterexample in dimension four}
+\author{Working draft}
+\thanks{This manuscript reorganizes and simplifies the supplied arguments. It makes no claim of priority.}
+\date{August 2026}
+
+\begin{document}
+
+\begin{abstract}
+Let
+\[
+V=\one^\perp\subset \R^{d+1},\qquad
+u_{ij}=\frac{e_i-e_j}{\sqrt2}\in S(V),\qquad 0\le i<j\le d,
+\]
+be the normalized roots of type $A_d$.  We study whether every smooth odd
+$f\colon S(V)\to\R$ agrees with a linear functional on a rotated copy of these
+roots.  A single variational identity identifies the cycle defect of a cubic
+with the gradient of its correlation with $\sum x_i^3$.  It yields the desired
+conclusion for all spherical harmonics of degrees $1$ and $3$, for a nonempty
+$C^0$-open set of arbitrary odd functions, and for all zonal odd functions.
+
+In dimension $4$ we then give an explicit counterexample.  Identifying
+$\R^4\cong\C^2$, for every sufficiently small nonzero real $\eps$ the function
+\[
+\operatorname{Re}(z_1^2\overline z_2)
++\eps\left(\abs{z_1}^2-\frac35\right)
+ \operatorname{Im}(z_1^2\overline z_2),\qquad (z_1,z_2)\in S^3,
+\]
+does not agree with any linear functional on any rotated $A_4$ root system.
+The two summands are spherical harmonics of degrees $3$ and $5$.  The main
+proof is reduced to a symmetry identity, a compact obstruction lemma, and one
+explicit algebraic transversality proposition; the complete algebraic
+verification is placed in an appendix.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Makeev conjectured that the dual difference body of a regular simplex is a
+universal cover for sets of diameter one \cite{Makeev1994}.  Kuperberg showed
+that the constant-width formulation is equivalent to the following
+function-theoretic assertion: every continuous odd function on $S^{d-1}$
+agrees with a linear function on a rotated copy of the $A_d$ root system.  He
+proved the assertion for $d=3$ and showed that the homological obstruction used
+there vanishes in every higher dimension \cite{Kuperberg1999}.  A related
+equivariant proof in dimension three was given by Hausel, Makai, and
+Sz\H{u}cs \cite{HauselMakaiSzucs2000}.  Chen's July 2026 preprint still records
+the regular-$A_d$ universal-cover statement as Makeev's conjecture
+\cite{Chen2026}.
+
+We normalize the roots throughout:
+\begin{equation}\label{eq:normalized-roots}
+V=\one^\perp\subset\R^m,\qquad m=d+1,\qquad
+u_{ij}=\frac{e_i-e_j}{\sqrt2}\in S(V).
+\end{equation}
+This normalization is essential because the function is defined on the unit
+sphere.  The root configuration has an orientation-reversing symmetry, for
+example the restriction to $V$ of a transposition of two coordinate vectors.
+Consequently, replacing $\OO(V)$ by $\SO(V)$ does not change the problem.
+
+The first part of the paper records three positive results.  The main device is
+a gradient identity for cubics, closely related in spirit to variational
+orthogonal tensor diagonalization \cite{MartinVanLoan2008}.  The second part
+gives a negative answer in dimension four.  Its perturbative structure is
+similar to the compactness-plus-infinitesimal-obstruction strategy that appears
+in Karasev's counterexample to another conjecture of Makeev
+\cite{Karasev2016}, although the obstruction here is different and completely
+explicit.
+
+\begin{theorem}[Main counterexample]\label{thm:main-counterexample}
+There is $\eps_0>0$ such that, for every real $\eps$ with
+$0<\abs\eps<\eps_0$, the smooth odd function
+\begin{equation}\label{eq:main-counterexample}
+\widetilde f_\eps(z_1,z_2)
+=
+\operatorname{Re}(z_1^2\overline z_2)
++\eps\left(\abs{z_1}^2-\frac35\right)
+ \operatorname{Im}(z_1^2\overline z_2)
+\end{equation}
+on $S^3\subset\C^2$ has no $A\in\SO(4)$ and $b\in\R^4$ satisfying
+\[
+\widetilde f_\eps(A\nu_{ij})=b\cdot A\nu_{ij}
+\qquad(0\le i<j\le4).
+\]
+\end{theorem}
+
+\section{Edge flows and the test map}\label{sec:test-map}
+
+Let $\cE$ be the space of skew edge labels on the complete graph $K_m$:
+\[
+\cE=\{Y\in\R^{m\times m}:Y^T=-Y\},
+\qquad
+\ip{X}{Y}_{\cE}=\sum_{i<j}X_{ij}Y_{ij}.
+\]
+For $c\in V$, define
+\[
+(\delta c)_{ij}=\frac{c_i-c_j}{\sqrt2}.
+\]
+These are exactly the restrictions of linear functions on $V$ to the roots
+\eqref{eq:normalized-roots}.  Put
+\begin{equation}\label{eq:cycle-space}
+\cC=\{X\in\cE:X\one=0\}.
+\end{equation}
+This is the divergence-free or cycle space.  The orthogonal splitting
+$\cE=\delta V\oplus\cC$ is the complete-graph instance of combinatorial Hodge
+theory for edge flows \cite{JiangLimYaoYe2011}.
+
+\begin{lemma}[Exact edge labels]\label{lem:exact-labels}
+For $Y\in\cE$, the following are equivalent.
+\begin{enumerate}
+\item There is $c\in V$ such that
+\[
+Y_{ij}=\frac{c_i-c_j}{\sqrt2}.
+\]
+\item Every triangle sum vanishes:
+\[
+Y_{ij}+Y_{jk}+Y_{ki}=0.
+\]
+\item $Y$ is orthogonal to $\cC$.
+\item With $\Pi=I-m^{-1}\one\one^T$, one has
+\[
+\Pi Y\Pi=0.
+\]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The first condition implies the second by telescoping.  Conversely, if all
+triangle sums vanish, set $c_0=0$ and $c_i=\sqrt2Y_{i0}$.  The triangle
+$(i,j,0)$ gives $Y_{ij}=(c_i-c_j)/\sqrt2$; subtracting the mean of the $c_i$
+places $c$ in $V$.
+
+If $X\one=0$, then
+\[
+\sum_{i<j}X_{ij}(c_i-c_j)=\sum_i c_i\sum_jX_{ij}=0,
+\]
+so exact labels are orthogonal to $\cC$.  The divergence map
+$X\mapsto X\one$ maps $\cE$ onto $V$: for $v\in V$, the skew matrix
+$X_{ij}=v_i-v_j$ satisfies $X\one=mv$.  Hence
+\[
+\dim\cC=\binom m2-(m-1),
+\]
+and the orthogonal complement of $\cC$ has the same dimension as $\delta V$.
+This proves the equivalence of the first three conditions.
+
+For the matrix criterion, an exact label has the form
+$Y=\rho\one^T-\one\rho^T$, so $\Pi Y\Pi=0$.  Conversely, suppose
+$\Pi Y\Pi=0$, and write $J_0=m^{-1}\one\one^T$.  Since $Y$ is skew,
+$J_0YJ_0=0$, and hence
+\[
+Y=J_0Y+YJ_0.
+\]
+If $\rho_i=m^{-1}\sum_jY_{ij}$, then
+$(YJ_0)_{ij}=\rho_i$ and $(J_0Y)_{ij}=-\rho_j$.  Thus
+$Y_{ij}=\rho_i-\rho_j$, which is exact after taking
+$c_i=\sqrt2\rho_i$ and subtracting the mean.
+\end{proof}
+
+The space $\cC$ is naturally $\mathfrak{so}(V)$: extend a skew operator on
+$V$ by zero on $\R\one$.  For an odd continuous function
+$f\colon S(V)\to\R$ and $A\in\SO(V)$, define
+\begin{equation}\label{eq:test-map}
+Y_f(A)_{ij}=f(A\nu_{ij}),\qquad
+\cT_f(A)=\proj_{\cC}Y_f(A).
+\end{equation}
+
+\begin{corollary}[Test-map formulation]\label{cor:test-map}
+There are $A\in\SO(V)$ and $b\in V$ such that
+\[
+f(A\nu_{ij})=b\cdot A\nu_{ij}\qquad(i<j)
+\]
+if and only if $\cT_f(A)=0$ for some $A\in\SO(V)$.
+\end{corollary}
+
+\begin{proof}
+If $\cT_f(A)=0$, then \cref{lem:exact-labels} gives $c\in V$ with
+$f(A\nu_{ij})=c\cdot\nu_{ij}$.  Taking $b=Ac$ gives the stated identity.
+The converse is immediate.
+\end{proof}
+
+Notice the dimension equality
+\[
+\dim\SO(d)=\binom d2=\dim\cC.
+\]
+It is the source of the degree and Euler-class approaches in the earlier
+literature \cite{Kuperberg1999,HauselMakaiSzucs2000}.
+
+\section{The cubic gradient identity}\label{sec:cubic}
+
+Define the distinguished cubic
+\begin{equation}\label{eq:distinguished-cubic}
+p(x)=\sum_{i=0}^{d}x_i^3,
+\qquad x=(x_0,\dots,x_d)\in V.
+\end{equation}
+If $Q$ is a cubic on $V$, let $T_Q$ be its symmetric trilinear polarization,
+so that $Q(x)=T_Q(x,x,x)$.  Extend $T_Q$ to $\R^m$ by projecting each argument
+to $V$, and use the invariant tensor inner product
+\[
+\ip{Q}{R}=\sum_{a,b,c=0}^{d}(T_Q)_{abc}(T_R)_{abc}.
+\]
+The group acts on cubics by $(g\cdot Q)(x)=Q(g^{-1}x)$.
+
+\begin{lemma}[Cubic edge identity]\label{lem:cubic-edge-identity}
+For every cubic $Q$ on $V$ and every $X\in\cC=\mathfrak{so}(V)$,
+\begin{equation}\label{eq:cubic-edge-identity}
+\ip{Q}{X\cdot p}
+=2\sqrt2\sum_{i<j}X_{ij}Q(\nu_{ij}).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The infinitesimal action gives
+\[
+(X\cdot p)(x)
+=\left.\frac{\dd}{\dd t}\right|_{t=0}p(e^{-tX}x)
+=-3\sum_{i,j}X_{ij}x_i^2x_j,
+\]
+so
+\begin{equation}\label{eq:tensor-side}
+\ip{Q}{X\cdot p}=-3\sum_{i,j}X_{ij}(T_Q)_{iij}.
+\end{equation}
+On the other hand,
+\[
+Q(e_i-e_j)
+=(T_Q)_{iii}-3(T_Q)_{iij}+3(T_Q)_{ijj}-(T_Q)_{jjj}.
+\]
+After multiplying by $X_{ij}$ and summing, the pure diagonal terms vanish
+because $X\one=0$.  Interchanging $i$ and $j$ in the remaining second term
+shows
+\[
+\sum_{i<j}X_{ij}Q(e_i-e_j)
+=-3\sum_{i,j}X_{ij}(T_Q)_{iij}.
+\]
+Comparison with \eqref{eq:tensor-side}, followed by
+$Q(e_i-e_j)=2\sqrt2Q(\nu_{ij})$, proves the identity.
+\end{proof}
+
+For a cubic $Q$, set
+\[
+\Psi_Q(A)=\ip{Q}{A\cdot p},\qquad A\in\SO(V).
+\]
+Identify $T_A\SO(V)$ with $\{AX:X\in\mathfrak{so}(V)\}$ using the curve
+$Ae^{tX}$.
+
+\begin{proposition}[Gradient form of the test map]\label{prop:gradient}
+For every $A\in\SO(V)$ and $X\in\cC$,
+\begin{equation}\label{eq:gradient-identity}
+\dd\Psi_Q(A)[AX]
+=2\sqrt2\,\ip{\cT_Q(A)}{X}_{\cE}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+By invariance of the tensor inner product and
+\cref{lem:cubic-edge-identity},
+\begin{align*}
+\dd\Psi_Q(A)[AX]
+&=\ip{Q}{A\cdot(X\cdot p)}
+ =\ip{A^{-1}\cdot Q}{X\cdot p}\\
+&=2\sqrt2\sum_{i<j}X_{ij}Q(A\nu_{ij})
+ =2\sqrt2\,\ip{\cT_Q(A)}{X}_{\cE}.
+\end{align*}
+The last equality uses $X\in\cC$, so projection onto $\cC$ does not change
+the pairing.
+\end{proof}
+
+\begin{theorem}[Cubics plus linear functions]\label{thm:cubics}
+Let $d\ge2$.  If
+\[
+f(x)=Q(x)+\ell(x),\qquad x\in S(V),
+\]
+where $Q$ is homogeneous cubic and $\ell$ is linear, then there are
+$A\in\SO(V)$ and $b\in V$ such that
+\[
+f(A\nu_{ij})=b\cdot A\nu_{ij}\qquad(i<j).
+\]
+Equivalently, the conclusion holds for every odd function whose spherical
+harmonic expansion has only degrees $1$ and $3$.
+\end{theorem}
+
+\begin{proof}
+The compact group $\SO(V)$ contains a critical point $A$ of $\Psi_Q$.
+By \eqref{eq:gradient-identity}, $\cT_Q(A)=0$.  Thus
+\cref{lem:exact-labels} gives $c\in V$ such that
+$Q(A\nu_{ij})=c\cdot\nu_{ij}$.  If $\ell(x)=a\cdot x$, then with
+$b=Ac+a$,
+\[
+b\cdot A\nu_{ij}=Q(A\nu_{ij})+\ell(A\nu_{ij}).
+\]
+\end{proof}
+
+We will also use a coordinate-free form.  Let
+$q_0,\dots,q_d\in\R^d$ be the vertices of a centered regular simplex with
+\[
+\ip{q_i}{q_j}=\delta_{ij}-\frac1{d+1},
+\qquad
+u_{ij}=\frac{q_i-q_j}{\sqrt2},
+\]
+and put $p_q(x)=\sum_i\ip{q_i}{x}^3$.  Transporting
+\eqref{eq:cubic-edge-identity} by an isometry gives
+\begin{equation}\label{eq:coordinate-free-cubic}
+\ip{C}{K\cdot p_q}
+=2\sqrt2\sum_{i<j}\ip{q_i}{Kq_j}C(\nu_{ij}).
+\end{equation}
+
+\begin{corollary}[Annihilation from a continuous symmetry]\label{cor:symmetry-annihilation}
+Let $h_\theta=e^{\theta J}\subset\SO(d)$ be a one-parameter subgroup, and let
+$C$ be a cubic satisfying $C\circ h_\theta=C$.  For $g\in\SO(d)$ define
+\[
+X_C(g)_{ij}=\ip{gq_i}{Jgq_j},
+\qquad
+\Lambda_g(Y)=\sum_{i<j}X_C(g)_{ij}Y_{ij}.
+\]
+Then
+\begin{equation}\label{eq:global-annihilation}
+\Lambda_g\bigl((C(g\nu_{ij}))_{ij}\bigr)=0
+\qquad\text{for every }g\in\SO(d).
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+The function $\Psi_C(g)=\ip{C}{g\cdot p_q}$ is invariant under left
+multiplication by $h_\theta$.  At $g$, the corresponding tangent vector is
+$Jg=gK$, where $K=g^{-1}Jg$.  Applying \eqref{eq:coordinate-free-cubic} to the
+derivative in this direction yields
+\[
+0=2\sqrt2\sum_{i<j}\ip{q_i}{Kq_j}C(g\nu_{ij})
+ =2\sqrt2\sum_{i<j}\ip{gq_i}{Jgq_j}C(g\nu_{ij}).
+\]
+\end{proof}
+
+\section{Two further positive results}\label{sec:positive}
+
+\subsection{A \texorpdfstring{$C^0$}{C0}-open set of arbitrary odd functions}
+
+\begin{theorem}[Uniform stability near \texorpdfstring{$p$}{p}]\label{thm:uniform-stability}
+For every $d\ge2$ there exists $\eta_d>0$ such that every continuous odd
+$f\colon S(V)\to\R$ satisfying
+\[
+\norm{f-p}_\infty<\eta_d
+\]
+has a zero of its test map.  The same is true near every nonzero scalar
+multiple or rotation of $p$, and adding a linear function does not affect the
+conclusion.
+\end{theorem}
+
+\begin{proof}
+Since $p(\nu_{ij})=0$, one has $\cT_p(I)=0$.  For
+$X\in\cC=\mathfrak{so}(V)$ and $u=\nu_{ij}$,
+\[
+\dd p_u(Xu)=3\sum_k u_k^2(Xu)_k
+=\frac32\bigl((Xu)_i+(Xu)_j\bigr).
+\]
+Now
+\[
+(Xu)_i=(Xu)_j=-\frac{X_{ij}}{\sqrt2},
+\]
+and hence
+\begin{equation}\label{eq:derivative-test-p}
+D\cT_p(I)[X]=-\frac3{\sqrt2}X.
+\end{equation}
+Thus $I$ is a nondegenerate zero.  By the inverse function theorem, choose a
+small exponential-coordinate ball $B\subset\mathfrak{so}(V)$ on which this is
+the only zero.  Its local Brouwer degree is the sign of the determinant in
+\eqref{eq:derivative-test-p}, and is therefore nonzero.  Standard homotopy
+invariance and stability of local degree under uniform perturbations then
+apply \cite{DincaMawhin2021}.
+
+For completeness, if $N=\binom{d+1}{2}$, then uniformly in $A$,
+\[
+\norm{\cT_f(A)-\cT_p(A)}
+\le \sqrt N\,\norm{f-p}_\infty.
+\]
+Taking $\norm{f-p}_\infty$ smaller than the distance of
+$\cT_p(e^X)$ from $0$ on $\partial B$, divided by $2\sqrt N$, keeps the entire
+straight-line homotopy away from $0$ on $\partial B$.  Nonzero degree therefore
+forces a zero of $\cT_f$ in $B$.
+\end{proof}
+
+\subsection{Zonal odd functions}
+
+\begin{theorem}[Zonal functions]\label{thm:zonal}
+Let $d\ge2$, $a\in S(V)$, and let $h\colon[-1,1]\to\R$ be continuous and odd.
+Then every function
+\[
+f(x)=h(a\cdot x)+\ell(x),
+\]
+with $\ell$ linear, satisfies the desired conclusion.
+\end{theorem}
+
+\begin{proof}
+It is enough to take $\ell=0$.  Choose a nontrivial partition
+$\{0,\dots,d\}=S\sqcup T$, with $s=\abs S$, $t=\abs T$, and $s+t=m$.
+Define $c\in V$ by
+\[
+c_i=
+\begin{cases}
+\alpha=\sqrt{\dfrac{t}{sm}},&i\in S,\\[2mm]
+\beta=-\sqrt{\dfrac{s}{tm}},&i\in T.
+\end{cases}
+\]
+Then $\sum_i c_i=0$ and $\norm c=1$.  Choose $A\in\SO(V)$ with $A^Ta=c$.
+Thus
+\[
+a\cdot A\nu_{ij}=\frac{c_i-c_j}{\sqrt2}.
+\]
+Putting $\kappa=(\alpha-\beta)/\sqrt2$, the values are $0$ within either block
+and $\pm\kappa$ across the two blocks.  Since $h$ is odd, define
+\[
+z_i=
+\begin{cases}
+\sqrt2\,h(\kappa),&i\in S,\\
+0,&i\in T.
+\end{cases}
+\]
+After subtracting its mean, $z\in V$, and
+\[
+h(a\cdot A\nu_{ij})=\frac{z_i-z_j}{\sqrt2}=z\cdot\nu_{ij}.
+\]
+Taking $b=Az$ proves the claim.
+\end{proof}
+
+\section{The dimension-four counterexample}\label{sec:counterexample}
+
+\subsection{A cyclic regular simplex}
+
+Identify $\R^4$ with $\C^2$, equipped with the real inner product
+\[
+\ip{z}{w}_{\R}=\operatorname{Re}(z_1\overline w_1+z_2\overline w_2).
+\]
+Let $\zeta=e^{2\pi i/5}$ and define
+\begin{equation}\label{eq:cyclic-simplex}
+q_j=\sqrt{\frac25}(\zeta^j,\zeta^{2j}),\qquad j=0,\dots,4.
+\end{equation}
+
+\begin{lemma}\label{lem:cyclic-simplex}
+The vectors $q_0,\dots,q_4$ are the vertices of a centered regular
+$4$-simplex:
+\[
+\sum_{j=0}^4q_j=0,
+\qquad
+\ip{q_i}{q_j}_{\R}=
+\begin{cases}
+\frac45,&i=j,\\[1mm]
+-\frac15,&i\ne j.
+\end{cases}
+\]
+Consequently
+\begin{equation}\label{eq:a4-cyclic-roots}
+\nu_{ij}=\frac{q_i-q_j}{\sqrt2}
+\end{equation}
+are unit vectors forming an $A_4$ root system.
+\end{lemma}
+
+\begin{proof}
+The sum vanishes because both $\sum_j\zeta^j$ and $\sum_j\zeta^{2j}$ vanish.
+Moreover,
+\[
+\ip{q_i}{q_j}_{\R}
+=\frac25\operatorname{Re}\bigl(\zeta^{i-j}+\zeta^{2(i-j)}\bigr).
+\]
+For $i\ne j$ the real part is $-1/2$, so the inner product is $-1/5$;
+for $i=j$ it is $4/5$.  Hence $\norm{q_i-q_j}^2=2$.
+The isometry $e_j-\frac15\one\mapsto q_j$ identifies this model with the
+standard one.  Composing with an odd permutation of the vertices if necessary
+makes the isometry orientation-preserving.
+\end{proof}
+
+Define
+\begin{equation}\label{eq:QRH}
+W(z)=z_1^2\overline z_2,
+\qquad
+Q(z)=\operatorname{Re}W(z),
+\qquad
+R(z)=\operatorname{Im}W(z),
+\qquad
+H(z)=\abs{z_1}^2R(z).
+\end{equation}
+These are odd real polynomials.  Consider the one-parameter subgroup
+\begin{equation}\label{eq:weighted-circle}
+h_\theta(z_1,z_2)=(e^{i\theta}z_1,e^{2i\theta}z_2),
+\qquad
+J(z_1,z_2)=(iz_1,2iz_2).
+\end{equation}
+Both $Q$ and $R$ are invariant under $h_\theta$.
+
+For $g\in\SO(4)$ put $p_i=gq_i$ and define
+\begin{equation}\label{eq:X-Lambda}
+X(g)_{ij}=\ip{p_i}{Jp_j}_{\R},
+\qquad
+\Lambda_g(Y)=\sum_{i<j}X(g)_{ij}Y_{ij}.
+\end{equation}
+The matrix $X(g)$ is skew, and
+\[
+\sum_jX(g)_{ij}=\ip{p_i}{J\sum_jp_j}_{\R}=0,
+\]
+so $X(g)\in\cC$.  Therefore $\Lambda_g$ annihilates every exact label.
+By \cref{cor:symmetry-annihilation},
+\begin{equation}\label{eq:QR-annihilation}
+\Lambda_g\bigl(Y_Q(g)\bigr)=0,
+\qquad
+\Lambda_g\bigl(Y_R(g)\bigr)=0
+\qquad\text{for every }g\in\SO(4).
+\end{equation}
+
+The only special calculation needed in the main argument is the following.
+Its proof is given in \cref{app:transversality}.
+
+\begin{proposition}[Algebraic transversality]\label{prop:algebraic-transversality}
+If the labels $\bigl(Q(g\nu_{ij})\bigr)_{i<j}$ are exact, then
+\begin{equation}\label{eq:transversality}
+\Lambda_g\bigl(Y_H(g)\bigr)\ne0.
+\end{equation}
+\end{proposition}
+
+\subsection{A compact obstruction lemma}
+
+\begin{lemma}[Compact obstruction]\label{lem:compact-obstruction}
+Let $M$ be compact, let $E$ be a finite-dimensional normed space, and let
+$F_0,F_1\colon M\to E$ be continuous.  Suppose that $x\mapsto\lambda_x\in E^*$
+is continuous and
+\begin{align}
+\lambda_x(F_0(x))&=0 &&\text{for every }x\in M,\label{eq:obstruction-a}\\
+F_0(x)=0&\Longrightarrow \lambda_x(F_1(x))\ne0.\label{eq:obstruction-b}
+\end{align}
+Then there is $\eps_0>0$ such that
+\[
+F_0(x)+\eps F_1(x)\ne0
+\]
+for every $x\in M$ and every $0<\abs\eps<\eps_0$.
+\end{lemma}
+
+\begin{proof}
+Let $Z=F_0^{-1}(0)$.  By compactness and
+\eqref{eq:obstruction-b}, there is a neighborhood $U$ of $Z$ on which
+$\lambda_x(F_1(x))\ne0$.  On the compact set $M\setminus U$,
+\[
+a:=\min_{M\setminus U}\norm{F_0}>0.
+\]
+Let $B=\max_M\norm{F_1}$.  For $0<\abs\eps<a/(B+1)$ the sum cannot vanish on
+$M\setminus U$.  If it vanished at $x\in U$, applying $\lambda_x$ and using
+\eqref{eq:obstruction-a} would give
+$0=\eps\lambda_x(F_1(x))$, a contradiction.
+\end{proof}
+
+\subsection{Completion of the proof}
+
+Apply \cref{lem:compact-obstruction} with
+\[
+M=\SO(4),\qquad E=\cC,
+\qquad F_0=\cT_Q,\qquad F_1=\cT_H,
+\qquad \lambda_g(Y)=\ip{X(g)}{Y}_{\cE}.
+\]
+Equation \eqref{eq:QR-annihilation} gives
+$\lambda_g(F_0(g))=0$ for all $g$.  If $F_0(g)=0$, then the $Q$-labels are
+exact, and \cref{prop:algebraic-transversality} gives
+$\lambda_g(F_1(g))\ne0$.  Hence, for all sufficiently small nonzero $\eps$,
+\[
+\cT_{Q+\eps H}(g)\ne0\qquad\text{for every }g\in\SO(4).
+\]
+By \cref{cor:test-map}, $Q+\eps H$ is a counterexample.
+
+It remains to obtain the harmonic form stated in
+\cref{thm:main-counterexample}.  The cubic $R$ is harmonic, and in $\R^4$ one
+checks
+\[
+\Delta(\abs{z_1}^2R)=12R,
+\qquad
+\Delta\bigl((\abs{z_1}^2+\abs{z_2}^2)R\bigr)=20R.
+\]
+Thus
+\begin{equation}\label{eq:harmonic-quintic}
+H_5(z)=
+\left(\abs{z_1}^2-\frac35(\abs{z_1}^2+\abs{z_2}^2)\right)R(z)
+\end{equation}
+is a homogeneous harmonic quintic.  On $S^3$,
+$H_5=H-\frac35R$, and \eqref{eq:QR-annihilation} implies
+\[
+\Lambda_g(Y_{H_5}(g))=\Lambda_g(Y_H(g)).
+\]
+The same compact-obstruction argument therefore applies to $Q+\eps H_5$.
+Its restriction to $S^3$ is exactly \eqref{eq:main-counterexample}, proving
+\cref{thm:main-counterexample}.
+
+\appendix
+
+\section{Proof of algebraic transversality}\label{app:transversality}
+
+We prove \cref{prop:algebraic-transversality}.  Fix $g\in\SO(4)$ for which the
+$Q$-labels are exact, write
+\[
+p_i=gq_i=(a_i,b_i)\in\C^2,
+\qquad
+a=(a_0,\dots,a_4),\quad b=(b_0,\dots,b_4)\in\C^5,
+\]
+and use coordinatewise multiplication of vectors in $\C^5$.  The Hermitian
+inner product is conjugate-linear in the first variable:
+\[
+\ip{x}{y}_{\C^5}=\sum_i\overline{x_i}y_i.
+\]
+
+\subsection{Frame identities}
+
+The $5\times4$ real matrix whose rows are the $p_i$ has orthonormal columns,
+all perpendicular to $\one$.  Therefore
+\begin{align}
+\sum_i a_i=\sum_i b_i&=0,\label{eq:frame-sums}\\
+\sum_i a_i^2=\sum_i b_i^2
+=\sum_i a_ib_i=\sum_i a_i\overline b_i&=0,\label{eq:frame-orthog}\\
+\sum_i\abs{a_i}^2=\sum_i\abs{b_i}^2&=2,\label{eq:frame-norms}\\
+\abs{a_i}^2+\abs{b_i}^2&=\frac45.\label{eq:row-norm}
+\end{align}
+Consequently
+\[
+\one,a,b,\overline a,\overline b
+\]
+are mutually orthogonal in $\C^5$, with squared norms $5,2,2,2,2$.
+Every $x\in\C^5$ has the expansion
+\begin{equation}\label{eq:basis-expansion}
+x=\frac{\sum_i x_i}{5}\one
++\frac12\left(
+\ip{a}{x}a+\ip{b}{x}b
++\ip{\overline a}{x}\overline a
++\ip{\overline b}{x}\overline b
+\right).
+\end{equation}
+For $u,v\in\C^5$, write
+\[
+(u\wedge v)_{ij}=u_iv_j-v_iu_j.
+\]
+
+\subsection{Cycle equations for the cubic}
+
+At the root $g\nu_{ij}=(p_i-p_j)/\sqrt2$,
+\[
+W(g\nu_{ij})
+=\frac1{2\sqrt2}(a_i-a_j)^2(\overline b_i-\overline b_j).
+\]
+Ignoring the harmless factor $1/(2\sqrt2)$, let
+\[
+\widetilde Y_{ij}=(a_i-a_j)^2(\overline b_i-\overline b_j).
+\]
+Modulo exact matrices, expansion gives
+\begin{equation}\label{eq:cubic-cycle-form}
+\Pi\widetilde Y\Pi
+\equiv -a^2\wedge\overline b+2a\wedge(a\overline b).
+\end{equation}
+Indeed, the omitted term is
+$a_i^2\overline b_i-a_j^2\overline b_j$.
+
+Define
+\begin{align}
+s&=\frac12\sum_i\abs{a_i}^2a_i,
+&\lambda&=\frac12\sum_i\abs{a_i}^2\overline b_i,\label{eq:s-lambda}\\
+m&=\sum_i a_i^2\overline b_i,
+&n&=\sum_i a_i^3,
+&u&=\frac12\sum_i a_i\overline b_i^2,
+&\ell&=\frac12\sum_i a_i^2b_i.\label{eq:m-n-u-ell}
+\end{align}
+Using \eqref{eq:basis-expansion},
+\begin{align}
+a^2&=sa+\frac m2b+\frac n2\overline a+\ell\overline b,
+\label{eq:a2-expansion}\\
+a\overline b&=\lambda a+ub+\frac m2\overline a-s\overline b.
+\label{eq:abbar-expansion}
+\end{align}
+Substitution into \eqref{eq:cubic-cycle-form} yields
+\begin{equation}\label{eq:omega}
+\omega:=\Pi\widetilde Y\Pi
+=2u\,a\wedge b
++m\,a\wedge\overline a
+-3s\,a\wedge\overline b
+-\frac m2b\wedge\overline b
+-\frac n2\overline a\wedge\overline b.
+\end{equation}
+Exactness of the real $Q$-labels is precisely $\operatorname{Re}\omega=0$.
+The six wedges of the complex basis $a,b,\overline a,\overline b$ are linearly
+independent.  Comparing \eqref{eq:omega} with its conjugate gives
+\begin{equation}\label{eq:cubic-exactness-conditions}
+s=0,
+\qquad m\in\R,
+\qquad 4u=\overline n.
+\end{equation}
+
+Replacing $g$ by $h_\theta g$ changes neither the values of $Q$ and $H$ nor
+the matrix $X(g)$, while
+$\lambda\mapsto e^{-2i\theta}\lambda$.  We may therefore assume
+\begin{equation}\label{eq:t-gauge}
+\lambda=t\ge0.
+\end{equation}
+In addition define
+\begin{equation}\label{eq:v-k}
+v=\sum_i a_ib_i^2,
+\qquad
+k=\sum_i b_i^3.
+\end{equation}
+
+\subsection{The coordinatewise multiplication table}
+
+Expanding each product in the orthogonal basis
+$\one,a,b,\overline a,\overline b$ by \eqref{eq:basis-expansion}, and using
+\eqref{eq:row-norm} and \eqref{eq:cubic-exactness-conditions}, gives
+\begin{align}
+a\overline a&=\frac25\one+tb+t\overline b,
+&b\overline b&=\frac25\one-tb-t\overline b,\notag\\
+a^2&=\frac m2b+\frac n2\overline a+\ell\overline b,
+&\overline a^2&=\frac m2\overline b+\frac{\overline n}{2}a+\overline\ell b,
+\notag\\
+a\overline b&=ta+\frac{\overline n}{4}b+\frac m2\overline a,
+&\overline a b&=t\overline a+\frac n4\overline b+\frac m2a,
+\notag\\
+ab&=ta+\ell\overline a+\frac v2\overline b,
+&\overline a\,\overline b&=t\overline a+\overline\ell a
+ +\frac{\overline v}{2}b,
+\notag\\
+b^2&=\frac n4a-tb+\frac v2\overline a+\frac k2\overline b,
+&\overline b^2&=\frac{\overline n}{4}\overline a-t\overline b
+ +\frac{\overline v}{2}a+\frac{\overline k}{2}b.
+\label{eq:multiplication-table}
+\end{align}
+For example, the coefficient of $b$ in $a\overline a$ is
+$\frac12\sum_i\overline b_i\abs{a_i}^2=t$, and the other coefficients are
+obtained in the same way.
+
+Coordinatewise multiplication is associative.  Comparing coefficients in
+\eqref{eq:multiplication-table} gives the following necessary equations:
+\begin{align}
+3mn&=4tv,\tag{E1}\label{eq:E1}\\
+\overline n\,v+16\ell t+8mt&=0,\tag{E2}\label{eq:E2}\\
+-2km+24\ell t-n^2&=0,\tag{E3}\label{eq:E3}\\
+-kt+\ell m+4t^2&=0,\tag{E4}\label{eq:E4}\\
+\overline n\,k+mn+8tv&=0,\tag{E5}\label{eq:E5}\\
+20\abs\ell^2+5m^2+5\abs n^2-40t^2&=8,\tag{E6}\label{eq:E6}\\
+16\abs\ell^2-4m^2-\abs n^2+4\abs v^2&=0,\tag{E7}\label{eq:E7}\\
+20\abs\ell^2+60t^2+5\abs v^2&=8.\tag{E8}\label{eq:E8}
+\end{align}
+More precisely, (E1)--(E3) are the $a,b,\overline b$ coefficients of
+$(a^2)b=a(ab)$; (E4)--(E5) are the $a,b$ coefficients of
+$(ab)b=a(b^2)$; and (E6), (E7), (E8) are respectively the indicated
+coefficients of
+\[
+(a^2)\overline a=a(a\overline a),\qquad
+(ab)\overline a=a(b\overline a),\qquad
+(ab)\overline b=a(b\overline b).
+\]
+
+\subsection{Classification of the possible cubic zeros}
+
+We extract the consequences of (E1)--(E8) needed below.
+
+\medskip
+\noindent\textbf{Case I: $t=0$.}
+Equation (E1) gives $mn=0$.  If $m=0$, then (E3) gives $n=0$, while
+(E6)--(E7) become
+\[
+20\abs\ell^2=8,
+\qquad
+16\abs\ell^2+4\abs v^2=0,
+\]
+a contradiction.  Hence $m\ne0$ and $n=0$.  Equations (E4) and (E3) give
+$\ell=k=0$, and then
+\begin{equation}\label{eq:case-I}
+m^2=\frac85,
+\qquad
+\abs v^2=m^2.
+\end{equation}
+
+\medskip
+\noindent\textbf{Case II: $t>0$ and $n=0$.}
+Equation (E1) gives $v=0$, and (E2) gives
+\begin{equation}\label{eq:case-II-ell}
+\ell=-\frac m2.
+\end{equation}
+Here $m\ne0$, since otherwise \eqref{eq:multiplication-table} would give
+$a^2=0$.  Equations (E3) and (E4) give
+$k=-6t$ and $m^2=20t^2$.  Finally (E8) yields
+\begin{equation}\label{eq:case-II}
+t^2=\frac1{20},
+\qquad
+m^2=1.
+\end{equation}
+
+\medskip
+\noindent\textbf{Case III: $t>0$ and $n\ne0$.}
+First $m\ne0$, since otherwise (E1), (E2), and (E3) successively give
+$v=0$, $\ell=0$, and $n=0$.  Put
+\begin{equation}\label{eq:q-h}
+q=\frac mt,
+\qquad
+h=\frac{\abs n^2}{t^2}>0.
+\end{equation}
+Equations (E1) and (E2) give
+\begin{equation}\label{eq:v-ell-case-III}
+v=\frac{3mn}{4t},
+\qquad
+\ell=-\frac{m(32+3h)}{64}.
+\end{equation}
+In particular, $\ell$ is real.  Equation (E5) gives
+\[
+k=-7m\frac n{\overline n}.
+\]
+Equation (E4) shows that $k$ is real, so
+\begin{equation}\label{eq:sigma}
+\sigma:=\frac n{\overline n}\in\{1,-1\},
+\qquad
+k=-7m\sigma,
+\qquad
+n^2=\sigma\abs n^2.
+\end{equation}
+After division by appropriate powers of $t$, equations (E4) and (E3) become
+\begin{align}
+3hq^2+32q^2-448\sigma q-256&=0,\label{eq:case-III-a}\\
+-9hq-8\sigma h+112\sigma q^2-96q&=0.\label{eq:case-III-b}
+\end{align}
+Eliminating $h$ gives
+\begin{align}
+(q-4)(q+2)(21q^2+42q+16)&=0 &&(\sigma=1),\label{eq:resultant-plus}\\
+(q+4)(q-2)(21q^2-42q+16)&=0 &&(\sigma=-1).
+\label{eq:resultant-minus}
+\end{align}
+The roots $q=-2\sigma$ give $h=-64$ and are impossible.  One root of each
+quadratic gives
+$h=(-74-14\sqrt{105})/3<0$.  The candidates $q=4\sigma$ give $h=32$;
+then \eqref{eq:v-ell-case-III} and (E1) imply
+\[
+\frac{\abs\ell^2}{t^2}=64,
+\qquad
+\frac{\abs v^2}{t^2}=288,
+\]
+and the left side of (E7), divided by $t^2$, is $2080$, a contradiction.
+The only remaining possibility is
+\begin{equation}\label{eq:case-III-qh}
+q=-\sigma\left(1-\frac{\sqrt{105}}{21}\right),
+\qquad
+h=\frac{-74+14\sqrt{105}}3.
+\end{equation}
+Equation (E6) then gives
+\begin{equation}\label{eq:case-III-tm}
+t^2=\frac{7(5\sqrt{105}-33)}{1440},
+\qquad
+m^2=\frac{49\sqrt{105}-477}{1080}.
+\end{equation}
+These three cases exhaust every actual cubic zero, because every such zero
+satisfies the necessary equations (E1)--(E8).
+
+\subsection{Evaluation of the quintic functional}
+
+For the actual root $g\nu_{ij}=(p_i-p_j)/\sqrt2$,
+\begin{equation}\label{eq:quintic-edge}
+\abs{z_1}^2W(z)
+=\frac1{4\sqrt2}
+(a_i-a_j)^3(\overline a_i-\overline a_j)
+(\overline b_i-\overline b_j).
+\end{equation}
+Define
+\begin{equation}\label{eq:Sigma}
+\Sigma=\sum_{i<j}X(g)_{ij}
+(a_i-a_j)^3(\overline a_i-\overline a_j)
+(\overline b_i-\overline b_j).
+\end{equation}
+Then
+\begin{equation}\label{eq:Lambda-H-Sigma}
+\Lambda_g(Y_H(g))=\frac1{4\sqrt2}\operatorname{Im}\Sigma.
+\end{equation}
+In wedge notation,
+\begin{equation}\label{eq:X-wedge}
+X(g)=\frac i2\bigl(\overline a\wedge a+2\overline b\wedge b\bigr).
+\end{equation}
+Modulo an exact matrix, the degree-five edge expression in
+\eqref{eq:Sigma} is
+\begin{align}
+F\equiv{}&
+\overline b\wedge(a^3\overline a)
++\overline a\wedge(a^3\overline b)
+-(\overline a\,\overline b)\wedge a^3\notag\\
+&+3a\wedge(a^2\overline a\,\overline b)
+-3(a\overline b)\wedge(a^2\overline a)\notag\\
+&-3(a\overline a)\wedge(a^2\overline b)
++3(a\overline a\,\overline b)\wedge a^2.
+\label{eq:F-wedge}
+\end{align}
+The omitted exact term is
+$(a^3\overline a\,\overline b)\wedge\one$, which is annihilated by $X(g)$.
+For the bilinear dot product $x\cdot y=\sum_i x_iy_i$,
+\begin{equation}\label{eq:wedge-pairing}
+\sum_{i<j}(u\wedge v)_{ij}(x\wedge y)_{ij}
+=(u\cdot x)(v\cdot y)-(u\cdot y)(v\cdot x).
+\end{equation}
+Every dot product in \eqref{eq:wedge-pairing} is five times the coefficient of
+$\one$ in the corresponding coordinatewise product.  Substituting
+\eqref{eq:multiplication-table}, \eqref{eq:X-wedge}, and
+\eqref{eq:F-wedge} gives
+\begin{equation}\label{eq:Sigma-Braw}
+\Sigma=-\frac i{80}\,\mathcal B_{\mathrm{raw}},
+\end{equation}
+where
+\begin{align}
+\mathcal B_{\mathrm{raw}}={}&
+-960\overline k\,\ell t
++160\abs\ell^2m
++320\ell t^2
+-120m^3\notag\\
+&-75m\abs n^2
+-800mt^2
++100m\abs v^2
++192m
+-160nt\overline v.
+\label{eq:Braw}
+\end{align}
+In all three cases above, $\ell$ is real.  The conjugates of (E4) and (E1)
+give
+\begin{equation}\label{eq:two-substitutions}
+\overline k\,t=\ell m+4t^2,
+\qquad
+nt\overline v=\frac34m\abs n^2.
+\end{equation}
+Using \eqref{eq:two-substitutions}, followed by (E6) and (E8), reduces
+\eqref{eq:Braw} to
+\begin{equation}\label{eq:B-simplified}
+\mathcal B
+=m\bigl(180m^2+105\abs n^2-4400t^2-128\bigr)
+-3520\ell t^2.
+\end{equation}
+The three cases now give
+\begin{equation}\label{eq:B-values}
+\begin{array}{c@{\qquad}c}
+\toprule
+\text{case}&\mathcal B\\
+\midrule
+\mathrm{I}&160m\\
+\mathrm{II}&-80m\\
+\mathrm{III}&60m(75-7\sqrt{105})\\
+\bottomrule
+\end{array}
+\end{equation}
+Each value is nonzero: in every case $m\ne0$, and
+$75-7\sqrt{105}>0$.  Since $\mathcal B$ is real,
+\eqref{eq:Lambda-H-Sigma} and \eqref{eq:Sigma-Braw} yield
+\[
+\Lambda_g(Y_H(g))=-\frac{\mathcal B}{320\sqrt2}\ne0.
+\]
+This proves \cref{prop:algebraic-transversality}.
+
+\begin{remark}[Symbolic verification]
+The wedge expansion \eqref{eq:F-wedge}, the extraction of (E1)--(E8), the
+resultants \eqref{eq:resultant-plus}--\eqref{eq:resultant-minus}, and the
+simplification \eqref{eq:B-simplified} are polynomial identities.  An
+accompanying exact-arithmetic SymPy script checks each of them independently.
+\end{remark}
+
+\begin{thebibliography}{99}
+
+\bibitem{Chen2026}
+Y.~Chen,
+\emph{Note on Lebesgue's universal cover problem},
+arXiv:2607.27227, 2026.
+\url{https://arxiv.org/abs/2607.27227}.
+
+\bibitem{DincaMawhin2021}
+G.~Dinc{\u a} and J.~Mawhin,
+\emph{Brouwer Degree: The Core of Nonlinear Analysis},
+Progress in Nonlinear Differential Equations and Their Applications,
+Birkh\"auser, Cham, 2021.
+\href{https://doi.org/10.1007/978-3-030-63230-4}{doi:10.1007/978-3-030-63230-4}.
+
+\bibitem{HauselMakaiSzucs2000}
+T.~Hausel, E.~Makai, Jr., and A.~Sz\H{u}cs,
+\emph{Inscribing cubes and covering by rhombic dodecahedra via equivariant topology},
+Mathematika \textbf{47} (2000), 371--397.
+\href{https://doi.org/10.1112/S0025579300015965}{doi:10.1112/S0025579300015965}.
+
+\bibitem{JiangLimYaoYe2011}
+X.~Jiang, L.-H.~Lim, Y.~Yao, and Y.~Ye,
+\emph{Statistical ranking and combinatorial Hodge theory},
+Math. Program. \textbf{127} (2011), 203--244.
+\href{https://doi.org/10.1007/s10107-010-0419-x}{doi:10.1007/s10107-010-0419-x}.
+
+\bibitem{Karasev2016}
+R.~N.~Karasev,
+\emph{A note on Makeev's conjectures},
+J. Math. Sci. (N.Y.) \textbf{212} (2016), 521--526.
+\href{https://doi.org/10.1007/s10958-016-2679-3}{doi:10.1007/s10958-016-2679-3}.
+
+\bibitem{Kuperberg1999}
+G.~Kuperberg,
+\emph{Circumscribing constant-width bodies with polytopes},
+New York J. Math. \textbf{5} (1999), 91--100.
+\url{https://nyjm.albany.edu/j/1999/5-6p.pdf}.
+
+\bibitem{Makeev1994}
+V.~V.~Makeev,
+\emph{Inscribed and circumscribed polyhedra of a convex body},
+Math. Notes \textbf{55} (1994), 423--425.
+\href{https://doi.org/10.1007/BF02112484}{doi:10.1007/BF02112484}.
+
+\bibitem{MartinVanLoan2008}
+C.~D.~Moravitz Martin and C.~F.~Van Loan,
+\emph{A Jacobi-type method for computing orthogonal tensor decompositions},
+SIAM J. Matrix Anal. Appl. \textbf{30} (2008), 1219--1232.
+\href{https://doi.org/10.1137/060655924}{doi:10.1137/060655924}.
+
+\end{thebibliography}
+
+\end{document}
