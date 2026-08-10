@@ -1,0 +1,1 @@
+Unfortunately, the magma program for d = 5 did not terminate in reasonable time. Let's try a different strategy. For example, you can write the code for a branch-and-bound strategy for proving the function never vanishes. (Or another method if you think it is better.)

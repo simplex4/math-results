@@ -1,0 +1,1 @@
+I have uploaded all outputs to the Library. Magma output "Certificate verified: tensor ideal is the unit ideal." in 14 seconds. So this case is verified. Please update makeev_d5_note.tex, adding details about this new successful computation.

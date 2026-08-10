@@ -1,0 +1,3 @@
+ChatGPT has produced this counterexample to Makeev's conjecture in dimension 4. I have verified it. Can you generalize it to dimension 5 (or better, more dimensions) ?
+
+(I think the same argument may work in higher dimensions, but more complex computations may be needed. If you cannot finish the computation in a short time, please tell me what to compute and give me the code to compute it. On my computer, I have Mathematica, Magma, in addition to usual coding tools like python, clang, etc.)
