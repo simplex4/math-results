@@ -11,7 +11,7 @@
   dimension will finish quickly.
 */
 
-d := 5;
+d := 4;
 assert d ge 4;
 Nverts := d + 1;
 
