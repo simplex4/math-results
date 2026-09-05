@@ -1,0 +1,16 @@
+Python 3.13.5; SymPy 1.14.0
+Exact algebra regression checks; not a verification of the full proof.
+PASS: oddness, infinitesimal invariance, conjugation, cubic and edge identities
+PASS: all three nonzero edge-group sums and the obstruction simplification
+PASS: exact normal-form frame (N=5, k1=2, k2=2, sign(gamma)=-1)
+PASS: exact normal-form frame (N=5, k1=2, k2=2, sign(gamma)=+1)
+PASS: exact normal-form frame (N=6, k1=2, k2=2, sign(gamma)=-1)
+PASS: exact normal-form frame (N=6, k1=2, k2=2, sign(gamma)=+1)
+PASS: exact normal-form frame (N=7, k1=2, k2=4, sign(gamma)=-1)
+PASS: exact normal-form frame (N=7, k1=2, k2=4, sign(gamma)=+1)
+PASS: exact normal-form frame (N=9, k1=4, k2=4, sign(gamma)=-1)
+PASS: exact normal-form frame (N=9, k1=4, k2=4, sign(gamma)=+1)
+PASS: exact normal-form frame (N=11, k1=4, k2=6, sign(gamma)=-1)
+PASS: exact normal-form frame (N=11, k1=4, k2=6, sign(gamma)=+1)
+SUCCESS: 1322 exact zero assertions passed.
+The classification and dimension arguments still require independent human verification.

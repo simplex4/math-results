@@ -1,0 +1,307 @@
+--- makeev.tex
++++ makeev_revised.tex
+@@ -32,8 +32,8 @@
+ \newaliascnt{corollary}{theorem}
+ \newtheorem{corollary}[corollary]{Corollary}
+ \aliascntresetthe{corollary}
+-\crefname{corollary}{corollary}{corollarys}
+-\Crefname{corollary}{Corollary}{Corollarys}
++\crefname{corollary}{corollary}{corollaries}
++\Crefname{corollary}{Corollary}{Corollaries}
+ \theoremstyle{definition}
+ \newaliascnt{definition}{theorem}
+ \newtheorem{definition}[definition]{Definition}
+@@ -77,8 +77,8 @@
+ $F$ of degree at most $3d(d+1)-3$ whose restriction to the unit sphere
+ agrees with no linear functional on any orthogonal image of the normalized
+ $A_d$ root system. The construction adds an arbitrarily small
+-circle-invariant polynomial perturbation to a cubic--quintic seed from the
+-previous dimension-four and dimension-five construction. A rank-one
++circle-invariant polynomial perturbation to the cubic--quintic seed of a
++previously proposed dimension-four and dimension-five construction. A rank-one
+ spectral argument bounds the dimension of every signed circle-orbit
+ stratum of root configurations. Invariant polynomial interpolation and an
+ incidence-dimension argument then exclude all configurations having no
+@@ -112,10 +112,14 @@
+  \alpha_{ij}=\frac{e_i-e_j}{\sqrt2},\qquad 0\leq i<j\leq d.
+ \end{equation}
+ Their number is $n=\binom N2=d(d+1)/2$. Normalization matters here:
+-\emph{all function evaluations in this paper are at unit vectors}.
++\emph{all root-label evaluations are at unit vectors}. Auxiliary polynomial
++and gradient evaluations at the simplex vertices $p_i$ below are not unit-vector
++evaluations; in fact $\norm{p_i}^2=d/(d+1)$.
+ Let $\Orth$ be the space of orthogonal isomorphisms $V\to\R^d$.
+ After a fixed orthogonal identification of these spaces, $\Orth$ is
+-$O(d)$.
++$O(d)$. Superscript $T$ denotes the Euclidean adjoint. We write
++$\Sym(V)$ for the real vector space of self-adjoint endomorphisms of $V$,
++and $cc^T$ for the operator $w\mapsto\ip c w\,c$.
+ 
+ \begin{theorem}\label{thm:main}
+ For every integer $d\geq4$, there exists an odd real polynomial
+@@ -164,11 +168,25 @@
+  C_d=\{y\in V:|\ip{y}{\alpha_{ij}}|\leq\tfrac12
+                  \text{ for every }i<j\}.
+ \end{equation}
+-This is the appropriately scaled polar of the difference body of a
+-regular simplex: if $\Delta=\operatorname{conv}\{e_i-N^{-1}\one\}$,
+-then $\Delta-\Delta=\operatorname{conv}\{e_i-e_j:i\ne j\}$.
+-The distance of every facet hyperplane in \eqref{eq:cover-polytope}
+-from the origin is $1/2$.
++To specify the scale, put
++$\Delta=\operatorname{conv}\{e_i-N^{-1}\one\}$ and use the polar in $V$,
++$L^\circ=\{y\in V:\ip y x\leq1\text{ for every }x\in L\}$.
++Since $\Delta-\Delta=\operatorname{conv}\{e_i-e_j:i\ne j\}$,
++\[
++ C_d=\frac1{\sqrt2}(\Delta-\Delta)^\circ.
++\]
++Thus the conjectured cover is the scaled \emph{polar of the difference
++body}, not the difference body itself. Every defining hyperplane in
++\eqref{eq:cover-polytope} is a facet hyperplane at distance $1/2$
++from the origin: its tangency point with the radius-$1/2$ ball satisfies
++all other defining inequalities strictly.
++
++Here a \emph{universal cover for sets of diameter one} means a set
++containing a congruent copy of every such set; equivalently, for each
++such set $K$, some translated orthogonal image of the cover contains $K$.
++Reflections as well as rotations and translations are allowed. In this
++normalization, Makeev's regular-simplex conjecture asserts that $C_d$ is
++a universal cover; see \cite[Conjecture 1]{Kuperberg1999}.
+ 
+ \begin{corollary}\label{cor:cover}
+ For every $d\geq4$, there is a compact convex body $K\subset\R^d$
+@@ -178,12 +196,12 @@
+ \end{corollary}
+ 
+ \subsection{Prior work and attribution}
+-Kuperberg \cite[Section I, Proposition 1]{Kuperberg1999} identifies
++Kuperberg \cite[Section 1, Proposition 1]{Kuperberg1999} identifies
+ agreement of odd functions with linear functions on rotated facet
+ normals as the functional form of the constant-width circumscription
+ problem. His paper proves the positive result in dimension three and
+ explains why the corresponding homological obstruction vanishes in
+-higher dimensions. Its Section V also uses determination of quadratic
++higher dimensions. Its Section 5 also uses determination of quadratic
+ forms by root evaluations in the low-dimensional affine problem.
+ We give the required uniform linear-algebra statement below.
+ 
+@@ -206,6 +224,9 @@
+ exploit the one-dimensional symmetry in every incidence fiber.
+ The spectral fiber bound and the uniform treatment of exceptional
+ placements are the additional arguments proposed in this manuscript.
++Chen's positive theorem at the maximal facet count concerns other
++polytopes and a different conjecture of Makeev; it does not establish
++the universal-cover property of $C_d$.
+ 
+ Our only non-elementary proof input is standard semialgebraic
+ triviality and dimension theory, recorded with references in
+@@ -370,8 +391,12 @@
+ the set of exceptional placements.
+ \end{definition}
+ 
+-The set $\Exc$ is a finite union of closed subsets of the compact
+-space $\Orth$, and hence is compact.
++The set $\Exc$ is a finite union of closed semialgebraic subsets of
++the compact space $\Orth$, and hence is compact and semialgebraic.
++It is nonempty, since an orthogonal placement can send any chosen root
++to a unit vector in $E_1$. An odd circle-invariant function vanishes on
++$S^{d-1}\cap(E_1\cup E_2)$, which explains why these placements must
++be treated separately from the interpolation argument.
+ 
+ \begin{lemma}\label{lem:orbits}
+ For $w\in S^{d-1}$, the orbit of $w$ under \eqref{eq:circle} contains
+@@ -487,8 +512,12 @@
+ are disjoint. A simple eigenvalue of $S$ contributes only one ordered
+ eigenvalue of $B$ to its interval. A double eigenvalue contributes two,
+ and at least one equals the original eigenvalue. It follows that an
+-eigenvalue of $B$ has multiplicity at most two, and any double
+-eigenvalue of $B$ is either $\lambda_1$ or $\lambda_2$.
++eigenvalue of $B$ has multiplicity at most two. More explicitly, a
++repeated value must lie in an interval coming from a double eigenvalue
++$s$ of $S$. That interval contains exactly two eigenvalues of $B$,
++counting multiplicity, and at least one of them is $s$. If they coincide,
++both are therefore $s$. Hence every double eigenvalue of $B$ is either
++$\lambda_1$ or $\lambda_2$, and is also double in $S$.
+ 
+ Let $P_\beta$ be the orthogonal projection to the $\beta$-eigenspace
+ of $B$. The determinant identity $\det(I+uv^T)=1+v^Tu$, obtained
+@@ -499,12 +528,16 @@
+  =1+\sum_{\beta\in\spec B}
+        \frac{\norm{P_\beta c}^2}{t-\beta}.
+ \end{equation}
+-The left side is determined by $B$ and $\lambda$. Its residues
+-therefore determine every $\norm{P_\beta c}^2$.
++This identity is first obtained for $t\notin\spec B$ and then read as
++an identity of rational functions. The left side is determined by $B$
++and $\lambda$, because the spectrum of $S$ is prescribed by
++$D_\lambda$. Its residues therefore determine every
++$\norm{P_\beta c}^2$.
+ If $\beta$ is double in $B$, it is also double in $S$, so the left
+ side has no pole at $\beta$. Thus $P_\beta c=0$. On every remaining,
+-one-dimensional eigenspace, the component of $c$ is determined up
+-to sign. There are only finitely many possible $c$.
++one-dimensional eigenspace, the component of $c$ is determined up to sign (with just one choice for a zero component). Thus there are
++at most $2^d$ possible vectors $c$ for this fixed pair $\lambda$,
++including the possibility $c=0$.
+ 
+ For each such choice, $S=B-cc^T$ is fixed. The set of $A$ solving
+ $A^TD_\lambda A=S$ is a coset of the orthogonal centralizer of
+@@ -520,7 +553,8 @@
+ \end{proof}
+ 
+ \subsection{Signed orbit strata}
+-Index positive roots by edges $e=(i,j)$ with $i<j$.
++Index positive roots by edges $e=(i,j)$ with $i<j$, ordered
++lexicographically.
+ For $A\notin\Exc$, put two edges in the same class when
+ \[
+  A\alpha_e=\sigma h_\theta A\alpha_{e'}
+@@ -536,7 +570,11 @@
+ of placements realizing it exactly. It is semialgebraic: relations
+ and nonrelations are expressed using equalities and inequalities
+ between values of \eqref{eq:orbit-map}. It is also preserved by
+-left multiplication by every $h_\theta$.
++left multiplication by every $h_\theta$. The word \emph{stratum} here
++means a piece of this finite semialgebraic partition; no smoothness,
++connectedness, or constant orbit dimension for the individual roots is
++assumed. All subsequent dimension arguments use \cref{lem:dimension},
++not a smooth transversality theorem.
+ Define
+ \begin{align}
+  L_Z&=\{c\in V:\ip{c}{\alpha_e}
+@@ -785,6 +823,9 @@
+  v_i=\omega\quad(i\in K_1\cup K_2),\qquad
+  \gamma^2=\frac1{k_1}+\frac1{k_2}.
+ \end{equation}
++The complement of $K_1\cup K_2$ is nonempty. These are necessary
++conditions only; the proposition does not claim that every frame
++satisfying them is exceptional.
+ \end{proposition}
+ \begin{proof}
+ Choose a root in $E_1\cup E_2$ and distinguish the two possibilities.
+@@ -815,7 +856,17 @@
+  S_{xv}=2\tau,\qquad S_{yv}=S_{uv}=S_{vv}=0.
+ \]
+ Symmetry of $S$ and the remaining columns of
+-\eqref{eq:gradient-matrix} consequently give
++\eqref{eq:gradient-matrix} consequently give the following form of the symmetric coefficient matrix:
++\[
++ S=\begin{pmatrix}
++  2U&2W&0&2\tau\\
++  2W&-2a&-2b&0\\
++  0&-2b&\gamma&0\\
++  2\tau&0&0&0
++ \end{pmatrix}.
++\]
++Here $xu=Ux$ and $xv=Wx$, because $x$ is supported at $0,1$.
++The first three column equations therefore reduce to
+ \begin{align}
+  yv&=Wy+\tau v,\label{eq:case1-yv}\\
+  yu&=a y+b u,\label{eq:case1-yu}\\
+@@ -903,9 +954,13 @@
+ \[
+  (2su-2rv,\quad 2ru+2sv,\quad 2rs,\quad s^2-r^2).
+ \]
+-The relation \eqref{eq:gradient-matrix} remains valid with a
+-symmetric matrix after any orthogonal change of these four
+-coordinates. By \eqref{eq:case2-basic}, its third gradient column
++This is a passive change of coordinates: the displayed polynomial is
++$Q$ expressed in $r,s,u,v$, not an assertion that $Q$ or $H$ is invariant
++under this change. If $T$ is the corresponding orthogonal coordinate
++matrix, the frame and gradient matrices become $PT$ and $GT$, and
++$G=PS$ becomes $GT=(PT)(T^TST)$. Thus the coefficient matrix remains
++symmetric. The actual normalization of the placement at the end of this
++case will use the allowed circle rotation $h_{\pi/4}$. By \eqref{eq:case2-basic}, its third gradient column
+ is $2\eta r$. Symmetry fixes the $u$ coefficients in the other
+ columns. The additional identities
+ \[
+@@ -919,8 +974,19 @@
+  s^2-r^2&=-2c r+2f s+\gamma v.
+                   \label{eq:case2-squares}
+ \end{align}
+-The coefficients $-2c$ and $2f$ in the last equation follow from
+-symmetry, and inner product with $v$ gives
++Equivalently, in the ordered coordinates $r,s,u,v$, the coefficient
++matrix has the form
++\[
++ \begin{pmatrix}
++ -2a&0&2\eta&-2c\\
++ 0&2e&0&2f\\
++ 2\eta&0&0&0\\
++ -2c&2f&0&\gamma
++ \end{pmatrix}.
++\]
++This displays explicitly the coefficients $-2c$ and $2f$ forced by
++symmetry. Taking the inner product of
++\eqref{eq:case2-squares} with $v$ gives
+ \begin{equation}\label{eq:case2-gamma}
+  \gamma=\ip s{sv}-\ip r{rv}=e-a.
+ \end{equation}
+@@ -990,6 +1056,9 @@
+      \left(\sum_i x_i^4+\sum_i y_i^4\right)
+   =\frac1{\gamma^2}\left(\frac1{k_1}+\frac1{k_2}\right).
+ \]
++Finally, the complement $O$ of $K_1\cup K_2$ is nonempty. Otherwise
++$v=\omega\one$ would have zero mean only if $v=0$, contradicting its
++unit norm. In particular $k_1+k_2\leq N-1$.
+ This completes the proof of \eqref{eq:normal-uv} and the proposition.
+ \end{proof}
+ 
+@@ -1005,11 +1074,10 @@
+ The normalization by $\sqrt2$ gives
+ \begin{equation}\label{eq:H-edge}
+  H\!\left(\frac{p_i-p_j}{\sqrt2}\right)
+- =\frac{(\Delta x^2+\Delta y^2)
++ =\frac{\bigl((\Delta x)^2+(\Delta y)^2\bigr)
+      \bigl(2\Delta x\Delta y\Delta u
+-        -(\Delta x^2-\Delta y^2)\Delta v\bigr)}{4\sqrt2}.
+-\end{equation}
+-Here $\Delta x^2$ means $(\Delta x)^2$, and likewise for $\Delta y$.
++        -((\Delta x)^2-(\Delta y)^2)\Delta v\bigr)}{4\sqrt2}.
++\end{equation}
+ The generator gives
+ \begin{equation}\label{eq:X-edge}
+  X(A)_{ij}=-x_i y_j+y_i x_j-2u_i v_j+2v_i u_j.
+@@ -1180,7 +1248,7 @@
+ 
+ The passage from odd functions to small perturbations of the support
+ function of a ball is standard; see
+-\cite[Section I, Proposition 1]{Kuperberg1999} and
++\cite[Section 1, Proposition 1]{Kuperberg1999} and
+ \cite[Lemma 8]{Chen2026}. We include the needed implication with
+ width normalized to one.
+ 
+@@ -1304,16 +1372,30 @@
+ preserves their pairing. The factor $(\sqrt2)^{-5}=1/(4\sqrt2)$
+ in \eqref{eq:H-edge} is retained throughout.
+ 
+-The companion script \texttt{verify\_algebra.py} checks, using exact
++The companion script \texttt{verify\_algebra\_revised.py} checks, using exact
+ symbolic arithmetic, the infinitesimal circle invariance of $Q,H$,
+ the cubic expansion, the normalized quintic edge formula, the
+ three nonzero edge-group sums, and their final simplification.
+ It also checks several explicitly specified four-column frames
+-satisfying the normal-form hypotheses. These are regression checks
+-for formulas: neither finitely many test frames nor the script
++satisfying the normal-form hypotheses, including zero and nonzero
++$\omega$ and nonconstant outside entries of $v$. Additional checks cover
++the quadratic-evaluation inverse, the general cubic-residual identity
++on deterministic simplex frames, and characteristic-polynomial
++identities for selected rank-one spectral examples. These are regression
++checks for formulas: neither finitely many test frames nor the script
+ certifies exhaustiveness of the normal form or any dimension
+ argument. No computational output is used as a premise of the
+ proof.
++
++\medskip
++\noindent\textbf{Revision note (September 4, 2026).}
++This revision corrects the scope of the unit-vector normalization statement,
++makes the polar scale and universal-cover convention explicit, expands the
++spectral multiplicity and normal-form coefficient arguments, and clarifies
++the passive coordinate change in Case 2. The theorem statements and the
++existential nature of the perturbation are unchanged. The accompanying
++review and additional symbolic checks are AI-assisted and do not constitute
++independent human review or a formal proof-assistant verification.
+ 
+ \begin{thebibliography}{JLYY11}
+ 

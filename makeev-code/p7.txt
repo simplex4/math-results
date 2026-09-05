@@ -1,0 +1,1 @@
+This AI-generated paper (makeev.tex) claims a counterexample to Makeev's conjecture on universal cover for all dimensions d > 3. Please check if there are any errors, ambiguities, or other unclear writing, and fix them if they exist and if you can.

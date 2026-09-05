@@ -1,0 +1,1463 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{mathtools,amssymb,amsfonts}
+\usepackage{mathrsfs}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{xurl}
+\usepackage[hidelinks,pdfencoding=auto,psdextra]{hyperref}
+\usepackage{aliascnt}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\hypersetup{
+  pdftitle={Odd polynomial counterexamples for the Ad root system in every dimension d >= 4},
+  pdfauthor={AI-generated verification draft},
+  pdfsubject={Proposed proof for independent human verification}
+}
+\allowdisplaybreaks[2]
+\setlength{\emergencystretch}{2em}
+\setlist[enumerate]{leftmargin=2.2em,itemsep=0.3em,topsep=0.4em}
+\newtheorem{theorem}{Theorem}[section]
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\crefname{proposition}{proposition}{propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\crefname{corollary}{corollary}{corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+\theoremstyle{definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+\crefname{definition}{definition}{definitions}
+\Crefname{definition}{Definition}{Definitions}
+\theoremstyle{remark}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+\crefname{remark}{remark}{remarks}
+\Crefname{remark}{Remark}{Remarks}
+\numberwithin{equation}{section}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Orth}{\mathcal O_d}
+\newcommand{\Pol}{\mathcal P_d}
+\newcommand{\Exc}{\mathcal E}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\spec}{spec}
+\DeclareMathOperator{\RePart}{Re}
+\DeclareMathOperator{\ImPart}{Im}
+\title[Odd polynomial counterexamples for the $A_d$ root system]
+{Odd polynomial counterexamples for the $A_d$ root system\\
+in every dimension $d\geq4$}
+\author{}
+\date{September 4, 2026}
+\keywords{Root systems, universal covers, odd polynomials, circle symmetry,
+semialgebraic dimension}
+
+\begin{document}
+\begin{abstract}
+For each $d\geq4$, we give an existence proof of an odd real polynomial
+$F$ of degree at most $3d(d+1)-3$ whose restriction to the unit sphere
+agrees with no linear functional on any orthogonal image of the normalized
+$A_d$ root system. The construction adds an arbitrarily small
+circle-invariant polynomial perturbation to the cubic--quintic seed of a
+previously proposed dimension-four and dimension-five construction. A rank-one
+spectral argument bounds the dimension of every signed circle-orbit
+stratum of root configurations. Invariant polynomial interpolation and an
+incidence-dimension argument then exclude all configurations having no
+root in either of the two nontrivial weight planes. The remaining
+configurations are treated by a necessary normal form and an explicit,
+nonzero quintic obstruction. The proof does not require a
+computer-algebra certificate or a classification of all cubic solutions.
+We also derive the corresponding counterexamples to the regular-simplex
+universal-cover conjecture. The auxiliary perturbation is existential;
+we do not prove that the unmodified quintic seed works in all dimensions.
+\end{abstract}
+\maketitle
+
+\noindent\textbf{Verification status.}
+This is an AI-generated manuscript. It presents a proposed proof
+for independent human verification; it has not been independently verified
+or peer reviewed. The algebraic audit supplied with the source checks
+selected identities, not the validity of the entire proof.
+
+\tableofcontents
+\clearpage
+
+\section{Statement, provenance, and proof strategy}\label{sec:introduction}
+
+Set $N=d+1$, and give
+\[
+ V=\one^\perp\subset\R^N,\qquad \one=(1,\ldots,1)^T,
+\]
+its induced Euclidean metric. The normalized positive roots are
+\begin{equation}\label{eq:roots}
+ \alpha_{ij}=\frac{e_i-e_j}{\sqrt2},\qquad 0\leq i<j\leq d.
+\end{equation}
+Their number is $n=\binom N2=d(d+1)/2$. Normalization matters here:
+\emph{all root-label evaluations are at unit vectors}. Auxiliary polynomial
+and gradient evaluations at the simplex vertices $p_i$ below are not unit-vector
+evaluations; in fact $\norm{p_i}^2=d/(d+1)$.
+Let $\Orth$ be the space of orthogonal isomorphisms $V\to\R^d$.
+After a fixed orthogonal identification of these spaces, $\Orth$ is
+$O(d)$. Superscript $T$ denotes the Euclidean adjoint. We write
+$\Sym(V)$ for the real vector space of self-adjoint endomorphisms of $V$,
+and $cc^T$ for the operator $w\mapsto\ip c w\,c$.
+
+\begin{theorem}\label{thm:main}
+For every integer $d\geq4$, there exists an odd real polynomial
+$F:\R^d\to\R$ of degree at most
+\begin{equation}\label{eq:degree-bound}
+ D=6n-3=3d(d+1)-3
+\end{equation}
+such that no $A\in\Orth$ and $b\in\R^d$ satisfy
+\begin{equation}\label{eq:agreement}
+ F(A\alpha_{ij})=\ip{b}{A\alpha_{ij}}
+ \qquad(0\leq i<j\leq d).
+\end{equation}
+In particular, $F|_{S^{d-1}}$ is a smooth odd counterexample even when
+only orientation-preserving placements are allowed.
+\end{theorem}
+
+There is a more precise perturbative conclusion. Fix the orthogonal
+splitting
+\begin{equation}\label{eq:splitting}
+ \R^d=E_1\oplus E_2\oplus E_0
+      =\C\oplus\C\oplus\R^{d-4}
+\end{equation}
+and define
+\begin{align}
+ h_\theta(z_1,z_2,t)&=(e^{i\theta}z_1,e^{2i\theta}z_2,t),
+       \label{eq:circle}\\
+ Q(z_1,z_2,t)&=\RePart(z_1^2\overline z_2),\qquad
+ H(z_1,z_2,t)=|z_1|^2\ImPart(z_1^2\overline z_2).
+       \label{eq:seed}
+\end{align}
+Let $\Pol$ denote the real vector space of odd polynomials of degree
+at most $D$ that are invariant under every $h_\theta$.
+
+\begin{theorem}\label{thm:perturbative}
+For each $d\geq4$, there is $\eps_0>0$ with the following property.
+For every $0<|\eps|<\eps_0$ and every $\eta>0$, there exists
+$R\in\Pol$, with $\norm R<\eta$ in any fixed norm on $\Pol$, such that
+\[
+ F=Q+\eps H+R
+\]
+has no agreement of the form \eqref{eq:agreement}.
+\end{theorem}
+
+For the geometric interpretation, define
+\begin{equation}\label{eq:cover-polytope}
+ C_d=\{y\in V:|\ip{y}{\alpha_{ij}}|\leq\tfrac12
+                 \text{ for every }i<j\}.
+\end{equation}
+To specify the scale, put
+$\Delta=\operatorname{conv}\{e_i-N^{-1}\one\}$ and use the polar in $V$,
+$L^\circ=\{y\in V:\ip y x\leq1\text{ for every }x\in L\}$.
+Since $\Delta-\Delta=\operatorname{conv}\{e_i-e_j:i\ne j\}$,
+\[
+ C_d=\frac1{\sqrt2}(\Delta-\Delta)^\circ.
+\]
+Thus the conjectured cover is the scaled \emph{polar of the difference
+body}, not the difference body itself. Every defining hyperplane in
+\eqref{eq:cover-polytope} is a facet hyperplane at distance $1/2$
+from the origin: its tangency point with the radius-$1/2$ ball satisfies
+all other defining inequalities strictly.
+
+Here a \emph{universal cover for sets of diameter one} means a set
+containing a congruent copy of every such set; equivalently, for each
+such set $K$, some translated orthogonal image of the cover contains $K$.
+Reflections as well as rotations and translations are allowed. In this
+normalization, Makeev's regular-simplex conjecture asserts that $C_d$ is
+a universal cover; see \cite[Conjecture 1]{Kuperberg1999}.
+
+\begin{corollary}\label{cor:cover}
+For every $d\geq4$, there is a compact convex body $K\subset\R^d$
+of constant width $1$ that is not contained in $A C_d+b$ for any
+$A\in\Orth$ and $b\in\R^d$. Thus $C_d$ is not a universal cover for
+sets of diameter $1$.
+\end{corollary}
+
+\subsection{Prior work and attribution}
+Kuperberg \cite[Section 1, Proposition 1]{Kuperberg1999} identifies
+agreement of odd functions with linear functions on rotated facet
+normals as the functional form of the constant-width circumscription
+problem. His paper proves the positive result in dimension three and
+explains why the corresponding homological obstruction vanishes in
+higher dimensions. Its Section 5 also uses determination of quadratic
+forms by root evaluations in the low-dimensional affine problem.
+We give the required uniform linear-algebra statement below.
+
+The specific polynomials $Q,H$ in \eqref{eq:seed}, the weight-$(1,2)$
+circle action, the exact-label reduction, the cubic annihilator, and the
+compactness perturbation strategy are inherited from the AI-generated
+repository manuscript \cite{ChatGPT2026}, which reports counterexamples
+in dimensions four and five. The VibeMathed entry \cite{VibeMathed2026}
+is the route by which that manuscript was supplied. We reproduce the
+identities needed here and do not use its dimension-specific algebraic
+certificates or assume the correctness of those certificates.
+
+Chen \cite[Section 2]{Chen2026} gives counterexamples for other facet
+configurations. More particularly, his Appendix A, Proposition 13,
+reproduces Makeev's finite-dimensional interpolation and dimension-count
+argument above the threshold $n=d(d+1)/2$. The generic-avoidance argument
+in this paper follows that general pattern. At the threshold,
+unrestricted dimension counting alone gives no strict inequality.
+Here we impose a circle symmetry, separate signed orbit types, and
+exploit the one-dimensional symmetry in every incidence fiber.
+The spectral fiber bound and the uniform treatment of exceptional
+placements are the additional arguments proposed in this manuscript.
+Chen's positive theorem at the maximal facet count concerns other
+polytopes and a different conjecture of Makeev; it does not establish
+the universal-cover property of $C_d$.
+
+Our only non-elementary proof input is standard semialgebraic
+triviality and dimension theory, recorded with references in
+\cref{sec:dimension}. The complete-graph cut/cycle identity is also
+related to the combinatorial Hodge decomposition in
+\cite{JiangLimYaoYe2011}; the elementary part used here is proved directly.
+No assertion of novelty is made for these background tools.
+
+\subsection{Organization}
+The proof has two independent parts. In \cref{sec:generic}, generic
+polynomials in $\Pol$ exclude all placements for which no root lies in
+$E_1\cup E_2$. In \cref{sec:cubic,sec:exceptional}, the seed
+$Q+\eps H$ excludes the complementary compact set for sufficiently
+small nonzero $\eps$. Openness on that compact set permits the two
+parts to be combined in \cref{sec:completion}.
+\Cref{sec:geometry} proves the geometric corollary, including the
+support-function construction.
+
+\section{Simplex frames, exact labels, and quadratic evaluations}
+\label{sec:linear}
+
+Put
+\[
+ q_i=e_i-\frac1N\one,\qquad
+ \Pi=I_N-\frac1N\one\one^T.
+\]
+For $A\in\Orth$, write $p_i=Aq_i$.
+
+\begin{lemma}\label{lem:frame}
+The vectors $p_i$ satisfy
+\begin{equation}\label{eq:frame}
+ \sum_i p_i=0,\qquad
+ \ip{p_i}{p_j}=\delta_{ij}-\frac1N,\qquad
+ \sum_i p_ip_i^T=I_d.
+\end{equation}
+Consequently, the $d$ coordinate columns of the $N\times d$ matrix
+with rows $p_i^T$ are orthonormal and perpendicular to $\one$.
+\end{lemma}
+\begin{proof}
+The first two assertions follow by expanding $q_i=e_i-N^{-1}\one$.
+Also $\sum_iq_iq_i^T=\Pi$, whose restriction to $V$ is the identity.
+Apply the orthogonal map $A$ to obtain \eqref{eq:frame}. The last
+assertion is the matrix form of the first and third identities.
+\end{proof}
+
+For an odd function $G$ on the unit sphere, define the skew-symmetric
+label matrix $Y_G(A)$ by
+\begin{equation}\label{eq:labels}
+ Y_G(A)_{ij}=G\!\left(\frac{p_i-p_j}{\sqrt2}\right)
+ \quad(i\ne j),\qquad Y_G(A)_{ii}=0.
+\end{equation}
+For polynomials the same notation refers to their restrictions to the
+sphere. Define the residual
+\begin{equation}\label{eq:residual}
+ \mathcal R_G(A)=\Pi Y_G(A)\Pi.
+\end{equation}
+
+\begin{lemma}[Exact labels]\label{lem:exact}
+For a skew-symmetric real $N\times N$ matrix $Y$, the following are
+equivalent:
+\begin{enumerate}[label=(\roman*)]
+ \item $Y_{ij}=\ip{c}{\alpha_{ij}}$ for all $i<j$, for some $c\in V$;
+ \item $Y_{ij}=\rho_i-\rho_j$ for real numbers $\rho_0,\ldots,\rho_d$;
+ \item $\Pi Y\Pi=0$.
+\end{enumerate}
+Thus \eqref{eq:agreement} at a specified $A$ is equivalent to
+$\mathcal R_F(A)=0$.
+\end{lemma}
+\begin{proof}
+Condition (i) gives (ii) with $\rho_i=c_i/\sqrt2$. Conversely, subtract
+the mean from the $\rho_i$ and take $c_i=\sqrt2\rho_i$. This gives
+$c\in V$ and (i).
+
+Under (ii), $Y=\rho\one^T-\one\rho^T$, so (iii) follows from
+$\Pi\one=0$. For the converse put $J_0=N^{-1}\one\one^T$.
+Skew-symmetry gives $J_0YJ_0=0$, and expanding (iii) yields
+$Y=J_0Y+YJ_0$. Its entries are $\rho_i-\rho_j$, where
+$\rho_i=N^{-1}\sum_jY_{ij}$.
+Finally, in \eqref{eq:agreement} one has $c=A^Tb$, and every $c\in V$
+arises from $b=Ac$.
+\end{proof}
+
+Matrices satisfying these conditions will be called \emph{exact}.
+If $X$ is skew-symmetric and $X\one=0$, then
+\begin{equation}\label{eq:cycle}
+ \sum_{i<j}X_{ij}(\rho_i-\rho_j)
+ =\sum_i\rho_i\sum_jX_{ij}=0.
+\end{equation}
+This is the cut/cycle orthogonality used later.
+
+\begin{lemma}[Quadratic evaluation isomorphism]\label{lem:quadratic}
+The linear map
+\begin{equation}\label{eq:quadratic-map}
+ \Sym(V)\longrightarrow\R^n,\qquad
+ B\longmapsto\bigl(\ip{\alpha_{ij}}{B\alpha_{ij}}\bigr)_{i<j}
+\end{equation}
+is an isomorphism.
+\end{lemma}
+\begin{proof}
+Extend $B$ to $\R^N$ by setting $B\one=0$. Form the symmetric matrix
+$W$ with zero diagonal and entries
+\[
+ W_{ij}=\frac{B_{ii}+B_{jj}}2-B_{ij}
+       =\ip{\alpha_{ij}}{B\alpha_{ij}}\quad(i\ne j).
+\]
+The same displayed expression is zero when $i=j$. Hence
+$\Pi W\Pi=-B$, since $\Pi B\Pi=B$ and the terms involving $B_{ii}$
+or $B_{jj}$ are killed by the projections. Thus \eqref{eq:quadratic-map}
+is injective. Both spaces have dimension $d(d+1)/2=n$, proving
+surjectivity as well.
+\end{proof}
+
+\section{Semialgebraic dimension facts}\label{sec:dimension}
+
+We use real semialgebraic dimension, with $\dim\varnothing=-\infty$.
+The needed foundational results are the Tarski--Seidenberg theorem,
+semialgebraic dimension theory, and Hardt's triviality theorem;
+see \cite[Sections 2.2, 2.8, and 9.3]{BCR1998} and \cite{Hardt1980}.
+An accessible account of the stratification and trivialization
+statements is \cite[Section 2.1]{HLTV2011}.
+
+\begin{lemma}\label{lem:dimension}
+Semialgebraic images are semialgebraic. Finite unions have dimension
+equal to the maximum of the dimensions, and dimensions add under
+Cartesian products. A semialgebraic subset of $\R^s$ of dimension
+less than $s$ has empty interior.
+
+Let $\pi:X\to Y$ be a continuous semialgebraic map. If every nonempty
+fiber has dimension at most $k$, then
+\begin{equation}\label{eq:fiber-upper}
+ \dim X\leq\dim\pi(X)+k.
+\end{equation}
+If every nonempty fiber has dimension at least $k$, then
+\begin{equation}\label{eq:fiber-lower}
+ \dim X\geq\dim\pi(X)+k.
+\end{equation}
+In particular, when all nonempty fibers have dimension $k$, equality
+holds.
+\end{lemma}
+\begin{proof}
+The first assertions are the cited basic dimension results. By
+semialgebraic triviality, $\pi(X)$ has a finite semialgebraic partition
+$Y_a$ over which $\pi^{-1}(Y_a)$ is semialgebraically homeomorphic
+to $Y_a\times F_a$, with $\pi$ corresponding to projection.
+The two fiber inequalities follow from
+\[
+ \dim X=\max_a(\dim Y_a+\dim F_a),\qquad
+ \dim\pi(X)=\max_a\dim Y_a.\qedhere
+\]
+\end{proof}
+
+\section{Generic avoidance outside the exceptional set}\label{sec:generic}
+
+\subsection{Orbit separation and interpolation}
+The action \eqref{eq:circle} is semialgebraic: write
+$\cos\theta=a$, $\sin\theta=b$ with $a^2+b^2=1$, and use
+$\cos2\theta=a^2-b^2$, $\sin2\theta=2ab$.
+
+\begin{definition}\label{def:exceptional}
+A placement $A\in\Orth$ is \emph{exceptional} if $A\alpha_{ij}$
+belongs to $E_1\cup E_2$ for at least one $i<j$. Write $\Exc$ for
+the set of exceptional placements.
+\end{definition}
+
+The set $\Exc$ is a finite union of closed semialgebraic subsets of
+the compact space $\Orth$, and hence is compact and semialgebraic.
+It is nonempty, since an orthogonal placement can send any chosen root
+to a unit vector in $E_1$. An odd circle-invariant function vanishes on
+$S^{d-1}\cap(E_1\cup E_2)$, which explains why these placements must
+be treated separately from the interpolation argument.
+
+\begin{lemma}\label{lem:orbits}
+For $w\in S^{d-1}$, the orbit of $w$ under \eqref{eq:circle} contains
+$-w$ if and only if $w\in E_1\cup E_2$.
+Moreover, the polynomial map
+\begin{equation}\label{eq:orbit-map}
+ \Psi(z_1,z_2,t)=
+ \bigl(t,|z_1|^2,|z_2|^2,
+        \RePart(z_1^2\overline z_2),
+        \ImPart(z_1^2\overline z_2)\bigr)
+\end{equation}
+separates circle orbits in $\R^d$ and has degree at most three.
+\end{lemma}
+\begin{proof}
+If $h_\theta w=-w$, the fixed component $t$ vanishes. If both complex
+coordinates were nonzero, we would have simultaneously
+$e^{i\theta}=-1$ and $e^{2i\theta}=-1$, which is impossible.
+Conversely, $\theta=\pi$ reverses a vector of $E_1$ and
+$\theta=\pi/2$ reverses a vector of $E_2$.
+
+The entries of $\Psi$ are invariant. Suppose two points have the same
+image. If their first complex coordinates are nonzero, their equal
+moduli permit a unique phase rotation taking the first coordinate of
+one point to that of the other. Equality of $z_1^2\overline z_2$
+then gives equality of the second coordinates after that same
+rotation. If both first coordinates vanish, equality of $|z_2|$
+suffices, since multiplication by $e^{2i\theta}$ is transitive on
+each circle. The fixed components are explicitly recorded. This
+also covers the case of two zero complex coordinates.
+\end{proof}
+
+\begin{lemma}[Invariant interpolation]\label{lem:interpolation}
+Let $w_1,\ldots,w_m\in S^{d-1}$, where $m\leq n$, be such that
+the $2m$ circle orbits of $w_1,-w_1,\ldots,w_m,-w_m$ are distinct.
+Then the evaluation map
+\[
+ \Pol\longrightarrow\R^m,\qquad
+ F\longmapsto(F(w_1),\ldots,F(w_m))
+\]
+is surjective.
+\end{lemma}
+\begin{proof}
+Let $\xi_1,\ldots,\xi_{2m}$ be the distinct points obtained by applying
+$\Psi$ to the indicated signed points. For each $j$, define a polynomial
+in the target coordinates $Y$ by
+\[
+ L_j(Y)=\prod_{k\ne j}
+  \frac{\ip{Y-\xi_k}{\xi_j-\xi_k}}{\norm{\xi_j-\xi_k}^2}.
+\]
+It has degree at most $2m-1$ and satisfies $L_j(\xi_k)=\delta_{jk}$.
+For arbitrary prescribed real values $a_1,\ldots,a_m$, a linear
+combination $P$ of these polynomials takes the value $a_j$ at
+$\Psi(w_j)$ and $-a_j$ at $\Psi(-w_j)$.
+The polynomial $P\circ\Psi$ is circle-invariant and has degree
+at most $3(2m-1)\leq D$. Its odd part
+\[
+ F(w)=\frac{P(\Psi(w))-P(\Psi(-w))}{2}
+\]
+is still invariant, belongs to $\Pol$, and has $F(w_j)=a_j$.
+\end{proof}
+
+\subsection{A rank-one spectral fiber bound}
+For $\lambda=(\lambda_1,\lambda_2)\in(0,1)\times(4,5)$ set
+\begin{equation}\label{eq:Dlambda}
+ D_\lambda=\lambda_1I_{E_1}\oplus\lambda_2I_{E_2}
+       \oplus\diag(\mu_1,\ldots,\mu_{d-4}),
+ \qquad \mu_j=4j+4.
+\end{equation}
+The final block is absent when $d=4$. Distinct eigenvalues of
+$D_\lambda$ are separated by more than three.
+
+\begin{lemma}[Spectral fibers]\label{lem:spectral}
+Every fiber of the semialgebraic map
+\begin{equation}\label{eq:spectral-map}
+ \Phi:\Orth\times(0,1)\times(4,5)\times\{c\in V:\norm c<1\}
+ \longrightarrow\Sym(V),\qquad
+ \Phi(A,\lambda_1,\lambda_2,c)=A^TD_\lambda A+cc^T
+\end{equation}
+has dimension at most two.
+\end{lemma}
+\begin{proof}
+Fix a matrix $B$ in the image and write
+\[
+ S=A^TD_\lambda A,\qquad B=S+cc^T.
+\]
+In each two-dimensional eigenspace of $S$ for $\lambda_1$ or
+$\lambda_2$, there is a nonzero vector perpendicular to $c$.
+It remains an eigenvector of $B$ with the same eigenvalue.
+Consequently $\lambda_1,\lambda_2\in\spec B$, leaving only finitely
+many possibilities for the pair $\lambda$.
+
+Fix such a pair. Write $s_1\leq\cdots\leq s_d$ for the eigenvalues
+of $S$ and $\beta_1\leq\cdots\leq\beta_d$ for those of $B$,
+with multiplicities. The inequalities
+\[
+ S\leq B\leq S+\norm c^2I
+\]
+in the order of symmetric matrices imply
+\begin{equation}\label{eq:eigen-bounds}
+ s_j\leq\beta_j\leq s_j+\norm c^2<s_j+1.
+\end{equation}
+For completeness, this follows from
+\[
+ \lambda_j(T)=\min_{\dim W=j}\ 
+              \max_{\substack{x\in W\\\norm x=1}}\ip{x}{Tx}.
+\]
+The formula itself follows from an orthonormal eigenbasis: the span
+of the first $j$ eigenvectors gives one inequality, and every
+$j$-dimensional subspace meets the span of eigenvectors numbered
+$j,\ldots,d$ nontrivially, giving the other.
+
+The intervals $[s,s+1)$ attached to distinct eigenvalues $s$ of $S$
+are disjoint. A simple eigenvalue of $S$ contributes only one ordered
+eigenvalue of $B$ to its interval. A double eigenvalue contributes two,
+and at least one equals the original eigenvalue. It follows that an
+eigenvalue of $B$ has multiplicity at most two. More explicitly, a
+repeated value must lie in an interval coming from a double eigenvalue
+$s$ of $S$. That interval contains exactly two eigenvalues of $B$,
+counting multiplicity, and at least one of them is $s$. If they coincide,
+both are therefore $s$. Hence every double eigenvalue of $B$ is either
+$\lambda_1$ or $\lambda_2$, and is also double in $S$.
+
+Let $P_\beta$ be the orthogonal projection to the $\beta$-eigenspace
+of $B$. The determinant identity $\det(I+uv^T)=1+v^Tu$, obtained
+by multilinearity in the columns, gives the rational-function identity
+\begin{equation}\label{eq:secular}
+ \frac{\det(tI-S)}{\det(tI-B)}
+ =1+c^T(tI-B)^{-1}c
+ =1+\sum_{\beta\in\spec B}
+       \frac{\norm{P_\beta c}^2}{t-\beta}.
+\end{equation}
+This identity is first obtained for $t\notin\spec B$ and then read as
+an identity of rational functions. The left side is determined by $B$
+and $\lambda$, because the spectrum of $S$ is prescribed by
+$D_\lambda$. Its residues therefore determine every
+$\norm{P_\beta c}^2$.
+If $\beta$ is double in $B$, it is also double in $S$, so the left
+side has no pole at $\beta$. Thus $P_\beta c=0$. On every remaining,
+one-dimensional eigenspace, the component of $c$ is determined up to sign (with just one choice for a zero component). Thus there are
+at most $2^d$ possible vectors $c$ for this fixed pair $\lambda$,
+including the possibility $c=0$.
+
+For each such choice, $S=B-cc^T$ is fixed. The set of $A$ solving
+$A^TD_\lambda A=S$ is a coset of the orthogonal centralizer of
+$D_\lambda$, which is
+\[
+ O(2)\times O(2)\times\{\pm1\}^{d-4}.
+\]
+Indeed, a commuting orthogonal map preserves each distinct eigenspace,
+and any orthogonal map on each eigenspace commutes. Each $O(2)$
+has dimension one, so this centralizer has dimension two. The
+fiber is contained in a finite union of such cosets, proving the
+claim.
+\end{proof}
+
+\subsection{Signed orbit strata}
+Index positive roots by edges $e=(i,j)$ with $i<j$, ordered
+lexicographically.
+For $A\notin\Exc$, put two edges in the same class when
+\[
+ A\alpha_e=\sigma h_\theta A\alpha_{e'}
+ \quad\text{for some }\sigma\in\{\pm1\},\ \theta\in\R.
+\]
+By \cref{lem:orbits}, the sign relative to a fixed representative is
+unique. Choose the least edge in each class as its representative,
+and give that representative sign $+1$. There are finitely many
+resulting signed partitions.
+
+Fix one signed partition, with $m$ classes and representatives
+$e_1,\ldots,e_m$, and let $Z\subset\Orth\setminus\Exc$ be the set
+of placements realizing it exactly. It is semialgebraic: relations
+and nonrelations are expressed using equalities and inequalities
+between values of \eqref{eq:orbit-map}. It is also preserved by
+left multiplication by every $h_\theta$. The word \emph{stratum} here
+means a piece of this finite semialgebraic partition; no smoothness,
+connectedness, or constant orbit dimension for the individual roots is
+assumed. All subsequent dimension arguments use \cref{lem:dimension},
+not a smooth transversality theorem.
+Define
+\begin{align}
+ L_Z&=\{c\in V:\ip{c}{\alpha_e}
+       =\sigma_e\ip{c}{\alpha_{e_a}}
+       \text{ for }e\text{ in class }a\},
+       \label{eq:LZ}\\
+ \mathscr S_Z&=\{B\in\Sym(V):
+       \ip{\alpha_e}{B\alpha_e}
+       =\ip{\alpha_{e_a}}{B\alpha_{e_a}}
+       \text{ for }e\text{ in class }a\}.
+       \label{eq:SZ}
+\end{align}
+Write $\ell=\dim L_Z$. By \cref{lem:quadratic},
+\begin{equation}\label{eq:Sdim}
+ \dim\mathscr S_Z=m.
+\end{equation}
+
+\begin{lemma}[Dimension of a signed stratum]\label{lem:stratum}
+For every nonempty signed stratum $Z$,
+\begin{equation}\label{eq:stratum-bound}
+ \dim Z+\ell\leq m.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For $A\in Z$, $c\in L_Z$, and the parameters in \eqref{eq:Dlambda},
+we have
+\begin{equation}\label{eq:image-in-S}
+ A^TD_\lambda A+cc^T\in\mathscr S_Z.
+\end{equation}
+For the first term, this is because $D_\lambda$ commutes with
+$h_\theta$ and quadratic evaluations do not see the sign $\sigma_e$.
+For the second term, it follows by squaring the defining equalities
+of $L_Z$.
+
+Restrict \eqref{eq:spectral-map} to
+\[
+ Z\times(0,1)\times(4,5)
+       \times\bigl(L_Z\cap\{\norm c<1\}\bigr).
+\]
+The domain has dimension $\dim Z+2+\ell$, and its image lies in
+the $m$-dimensional space \eqref{eq:SZ}. Its fibers have dimension
+at most two by \cref{lem:spectral}. Applying
+\eqref{eq:fiber-upper} yields
+$\dim Z+2+\ell\leq m+2$, which is \eqref{eq:stratum-bound}.
+The restriction $\norm c<1$ is used only for this auxiliary
+spectral argument; it places no bound on the eventual linear
+functional in the agreement problem.
+\end{proof}
+
+\begin{proposition}[Generic nonexceptional avoidance]\label{prop:generic}
+The set
+\[
+ \mathcal B=\{F\in\Pol:\mathcal R_F(A)=0
+                      \text{ for some }A\notin\Exc\}
+\]
+is semialgebraic and has dimension at most $\dim\Pol-1$.
+In particular, $\Pol\setminus\mathcal B$ is dense in $\Pol$.
+\end{proposition}
+\begin{proof}
+Fix a nonempty stratum $Z$ as above, and put $p=\dim\Pol$.
+For each $A\in Z$, the orbits of the representatives and their
+negatives are all distinct. Thus \cref{lem:interpolation} makes
+the $m$-value evaluation map surjective. Consider the semialgebraic
+incidence set
+\begin{equation}\label{eq:incidence}
+ \mathcal I_Z=\{(A,c,F)\in Z\times L_Z\times\Pol:
+ F(A\alpha_{e_a})=\ip{c}{\alpha_{e_a}}
+                         \ (1\leq a\leq m)\}.
+\end{equation}
+Over every $(A,c)\in Z\times L_Z$, its fiber is a nonempty affine
+space of dimension $p-m$. By \cref{lem:dimension,lem:stratum},
+\begin{equation}\label{eq:incidence-dim}
+ \dim\mathcal I_Z=\dim Z+\ell+p-m\leq p.
+\end{equation}
+
+Every nonempty fiber of the projection $\mathcal I_Z\to\Pol$
+contains the circle
+\[
+ \{(h_\theta A,c,F):\theta\in\R/2\pi\mathbb Z\}.
+\]
+It lies in the same fiber because $F$ is invariant and $Z$ is
+preserved by the action. It is one-dimensional: if
+$h_\theta A=A$, the surjectivity of $A$ gives $h_\theta=I$, and
+its action on $E_1$ gives $\theta=0$ modulo $2\pi$.
+The circle is semialgebraic by the polynomial parametrization
+preceding \cref{def:exceptional}. Consequently
+\eqref{eq:fiber-lower} and \eqref{eq:incidence-dim} bound the
+projection's dimension by $p-1$.
+
+A polynomial has exact labels at a placement in $Z$ if and only
+if it occurs in this projection. For the forward implication,
+\cref{lem:exact} supplies $c$, and signed orbit invariance forces
+$c\in L_Z$. For the converse, the representative equations in
+\eqref{eq:incidence} extend to every edge by oddness and circle
+invariance. Taking the finite union of these projections over
+all signed partitions gives precisely $\mathcal B$. The final
+assertion follows because a smaller-dimensional semialgebraic
+set has empty interior.
+\end{proof}
+
+\section{The cubic identities}\label{sec:cubic}
+
+Write $z_1=x+iy$, $z_2=u+iv$. Then
+\begin{equation}\label{eq:real-seed}
+ Q=(x^2-y^2)u+2xyv,\qquad
+ H=(x^2+y^2)\bigl(2xyu-(x^2-y^2)v\bigr).
+\end{equation}
+Let
+\[
+ J(z_1,z_2,t)=(iz_1,2iz_2,0),\qquad
+ X(A)_{ij}=\ip{p_i}{Jp_j}.
+\]
+For an odd function $G$ define
+\begin{equation}\label{eq:Lambda}
+ \Lambda_A(G)=\sum_{i<j}X(A)_{ij}
+                     G\!\left(\frac{p_i-p_j}{\sqrt2}\right).
+\end{equation}
+The matrix $X(A)$ is skew-symmetric and $X(A)\one=0$ by
+\eqref{eq:frame}. Hence \eqref{eq:cycle} gives
+\begin{equation}\label{eq:exact-Lambda}
+ \mathcal R_G(A)=0\quad\Longrightarrow\quad\Lambda_A(G)=0.
+\end{equation}
+
+The seed and the annihilator used in this section are those of
+\cite{ChatGPT2026}. We give direct proofs, including the normalization
+constants, because the later argument uses them in every dimension.
+
+\begin{lemma}[Cubic expansion]\label{lem:cubic-expansion}
+For any real homogeneous cubic $C$ and vectors $a,b$,
+\begin{equation}\label{eq:cubic-expansion}
+ C(a-b)=C(a)-C(b)-\ip{\nabla C(a)}b+\ip a{\nabla C(b)}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Write $C(w)=T(w,w,w)$ for its symmetric trilinear polarization.
+Expansion of $T(a-b,a-b,a-b)$ gives mixed terms
+$-3T(a,a,b)+3T(a,b,b)$, which are exactly the two gradient terms
+in \eqref{eq:cubic-expansion}.
+\end{proof}
+
+\begin{lemma}[Cubic annihilation]\label{lem:annihilator}
+For every $A\in\Orth$,
+\begin{equation}\label{eq:cubic-annihilation}
+ \Lambda_A(Q)=0.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Apply \eqref{eq:cubic-expansion} to \eqref{eq:Lambda}. The terms
+$Q(p_i)-Q(p_j)$ are exact and make no contribution. Also,
+by \eqref{eq:frame} and the skew-symmetry of $J$,
+\[
+ \sum_jX(A)_{ij}p_j=-Jp_i,\qquad
+ \sum_iX(A)_{ij}p_i=Jp_j.
+\]
+Since the product of two skew-symmetric edge labels is unchanged
+when $i,j$ are exchanged, the sum over $i<j$ is half the sum
+over all ordered pairs. Therefore
+\begin{align*}
+ \Lambda_A(Q)
+ &=\frac1{4\sqrt2}\sum_{i,j}X(A)_{ij}
+    \bigl(-\ip{\nabla Q(p_i)}{p_j}
+                 +\ip{p_i}{\nabla Q(p_j)}\bigr)\\
+ &=\frac1{2\sqrt2}\sum_i\ip{\nabla Q(p_i)}{Jp_i}=0.
+\end{align*}
+The last equality follows by differentiating
+$Q(h_\theta w)=Q(w)$ at $\theta=0$.
+\end{proof}
+
+Let $x,y,u,v\in\R^N$ now denote the first four coordinate
+\emph{columns} of the simplex frame $(p_i)$. All products of such
+columns below are componentwise. Set
+\begin{equation}\label{eq:P-and-G}
+ P=(x\ \ y\ \ u\ \ v),\qquad
+ G=(2xu+2yv\ \ -2yu+2xv\ \ x^2-y^2\ \ 2xy).
+\end{equation}
+Thus the rows of $G$ are the first four gradient coordinates of $Q$.
+
+\begin{lemma}[Symmetric gradient matrix]\label{lem:gradient}
+If $\mathcal R_Q(A)=0$, there is a symmetric real $4\times4$ matrix
+$S$ such that
+\begin{equation}\label{eq:gradient-matrix}
+ G=PS.
+\end{equation}
+\end{lemma}
+\begin{proof}
+By \cref{lem:frame}, $P^TP=I_4$ and $\one^TP=0$.
+The same identities give $\one^TG=0$: the mixed products have
+zero sum, and $\sum_i(x_i^2-y_i^2)=1-1=0$.
+Applying \eqref{eq:cubic-expansion} to every edge and projecting
+away the exact term gives
+\begin{equation}\label{eq:cubic-residual}
+ \mathcal R_Q(A)=\frac1{2\sqrt2}(PG^T-GP^T).
+\end{equation}
+Exactness therefore gives $PG^T=GP^T$. Multiplication on the right
+by $P$ yields $G=P(G^TP)$, while multiplication on both sides by
+$P^T$ and $P$ gives $G^TP=P^TG$. Thus $S=G^TP$ is symmetric and
+satisfies \eqref{eq:gradient-matrix}.
+\end{proof}
+
+\begin{lemma}[Allowed normalizations]\label{lem:normalizations}
+Each of the following operations preserves exactness of the $Q$
+labels and preserves the number $\Lambda_A(H)$:
+\begin{enumerate}[label=(\roman*)]
+ \item left multiplication of $A$ by $h_\theta$;
+ \item simultaneous complex conjugation
+       $C(z_1,z_2,t)=(\overline z_1,\overline z_2,t)$;
+ \item a permutation of the simplex indices.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+The maps $h_\theta$ preserve $Q,H$ and commute with $J$.
+For conjugation, $Q(Cw)=Q(w)$, $H(Cw)=-H(w)$, and $C^TJC=-J$.
+Thus both factors of each summand of $\Lambda_A(H)$ change sign.
+Finally, the exactness condition is invariant under relabeling.
+The identity
+\[
+ \Lambda_A(H)=\frac12\sum_{i,j}X(A)_{ij}Y_H(A)_{ij}
+\]
+shows invariance under permutations as well. A permutation of
+indices is realized by the corresponding orthogonal automorphism
+of $V$, so all the resulting frames are still legitimate placements.
+\end{proof}
+
+\section{Exceptional cubic solutions and the quintic obstruction}
+\label{sec:exceptional}
+
+The argument in this section classifies only the information needed
+at exceptional cubic solutions. It does \emph{not} classify every
+solution of $\mathcal R_Q(A)=0$.
+
+\begin{proposition}[Necessary normal form]\label{prop:normal-form}
+Suppose $A\in\Exc$ and $\mathcal R_Q(A)=0$. After operations allowed
+in \cref{lem:normalizations}, there are disjoint sets of indices
+$K_1,K_2$, of even cardinalities $k_1,k_2\geq2$, and real numbers
+$\gamma\ne0$ and $\omega$ such that
+\begin{equation}\label{eq:normal-supports}
+ x_i=\begin{cases}\pm k_1^{-1/2},&i\in K_1,\\0,&i\notin K_1,
+       \end{cases}
+ \qquad
+ y_i=\begin{cases}\pm k_2^{-1/2},&i\in K_2,\\0,&i\notin K_2.
+       \end{cases}
+\end{equation}
+On each support the plus and minus signs occur equally often, and
+\begin{equation}\label{eq:normal-uv}
+ u=\frac{x^2-y^2}{\gamma},\qquad
+ v_i=\omega\quad(i\in K_1\cup K_2),\qquad
+ \gamma^2=\frac1{k_1}+\frac1{k_2}.
+\end{equation}
+The complement of $K_1\cup K_2$ is nonempty. These are necessary
+conditions only; the proposition does not claim that every frame
+satisfying them is exceptional.
+\end{proposition}
+\begin{proof}
+Choose a root in $E_1\cup E_2$ and distinguish the two possibilities.
+Throughout the proof, the coordinate columns are orthonormal,
+have zero mean, and satisfy \eqref{eq:gradient-matrix}.
+
+\subsubsection*{Case 1: a root belongs to $E_1$}
+A circle rotation and a relabeling make this root the real $z_1$
+axis and its indices $0,1$. Since $A^Te_x=\alpha_{01}$, the
+column $x$ is
+\[
+ x_0=\frac1{\sqrt2},\qquad x_1=-\frac1{\sqrt2},\qquad
+ x_i=0\quad(i\ne0,1).
+\]
+The other coordinate columns have equal entries at indices $0,1$.
+Write
+\[
+ y_0=y_1=\tau,\qquad u_0=u_1=U,\qquad v_0=v_1=W.
+\]
+Subtracting rows $0$ and $1$ in \eqref{eq:gradient-matrix} gives
+\begin{equation}\label{eq:case1-first-row}
+ (S_{xx},S_{xy},S_{xu},S_{xv})=(2U,2W,0,2\tau).
+\end{equation}
+Here the subscripts indicate the ordered coordinates $x,y,u,v$.
+Since $2xy=2\tau x$, the last column of $G$ and the independence
+of the columns of $P$ give
+\[
+ S_{xv}=2\tau,\qquad S_{yv}=S_{uv}=S_{vv}=0.
+\]
+Symmetry of $S$ and the remaining columns of
+\eqref{eq:gradient-matrix} consequently give the following form of the symmetric coefficient matrix:
+\[
+ S=\begin{pmatrix}
+  2U&2W&0&2\tau\\
+  2W&-2a&-2b&0\\
+  0&-2b&\gamma&0\\
+  2\tau&0&0&0
+ \end{pmatrix}.
+\]
+Here $xu=Ux$ and $xv=Wx$, because $x$ is supported at $0,1$.
+The first three column equations therefore reduce to
+\begin{align}
+ yv&=Wy+\tau v,\label{eq:case1-yv}\\
+ yu&=a y+b u,\label{eq:case1-yu}\\
+ x^2-y^2&=-2b y+\gamma u,\label{eq:case1-squares}
+\end{align}
+for some real $a,b,\gamma$. Specifically,
+$a=-S_{yy}/2$, $b=-S_{yu}/2$, and $\gamma=S_{uu}$.
+Taking the inner product of \eqref{eq:case1-squares} with $u$
+and using \eqref{eq:case1-yu} gives
+\begin{equation}\label{eq:case1-gamma}
+ \gamma=\ip{x^2}{u}-\ip{y^2}{u}
+        =U-\ip{y}{yu}=U-a.
+\end{equation}
+This derives all coefficients used below.
+
+We first prove $\tau=0$. At index $0$, \eqref{eq:case1-yv}
+implies $\tau W=0$. If $\tau\ne0$, then $W=0$ and
+$(y-\tau\one)v=0$. Thus $v$ is supported where $y_i=\tau$.
+The unit column $v$ vanishes at $0,1$, so there exists an index
+$i\notin\{0,1\}$ with $v_i\ne0$ and $y_i=\tau$.
+Comparing \eqref{eq:case1-squares} at $0$ and $i$ gives
+\[
+ \gamma(U-u_i)=\frac12.
+\]
+In particular $U\ne u_i$. Comparison of \eqref{eq:case1-yu}
+at these indices gives $(\tau-b)(U-u_i)=0$, so $b=\tau$.
+Substitution at index $0$ then gives $a=0$.
+Equation \eqref{eq:case1-yu} becomes $yu=\tau u$.
+For an index $j\notin\{0,1\}$ with $y_j\ne\tau$, this forces
+$u_j=0$, and \eqref{eq:case1-squares} gives
+$-y_j^2=-2\tau y_j$. Therefore every entry of $y$ lies in
+$\{0,\tau,2\tau\}$. Since $y_0=\tau\ne0$, all nonzero entries
+have the same sign, contradicting $\sum_jy_j=0$.
+This proves $\tau=0$.
+
+At index $0$, \eqref{eq:case1-squares} now gives $\gamma U=1/2$,
+so $\gamma,U\ne0$. Equation \eqref{eq:case1-yu} at that index
+gives $b=0$. Hence
+\begin{equation}\label{eq:case1-reduced}
+ u=\frac{x^2-y^2}{\gamma},\qquad yu=a y.
+\end{equation}
+The supports of $x$ and $y$ are disjoint because $y_0=y_1=0$.
+On the nonempty support of $y$, the second equation says $u_i=a$;
+the first says $y_i^2=-\gamma a$. This is a fixed positive value.
+Because $y$ has zero mean and norm one, its support has even
+cardinality and its nonzero entries have equal positive and negative
+multiplicities, with magnitude the reciprocal square root of that
+cardinality. Equation \eqref{eq:case1-yv} now says $v_i=W$ on
+this support; the same holds on $\{0,1\}$ by definition.
+This is \eqref{eq:normal-supports}--\eqref{eq:normal-uv}, with
+$K_1=\{0,1\}$ and $\omega=W$, apart from the final norm identity,
+which is proved after Case 2.
+
+\subsubsection*{Case 2: a root belongs to $E_2$}
+A circle rotation and relabeling make the root the real $z_2$
+axis, with indices $0,1$. Thus
+\[
+ u_0=\frac1{\sqrt2},\qquad u_1=-\frac1{\sqrt2},\qquad
+ u_i=0\quad(i\ne0,1).
+\]
+Write $x_0=x_1=X$ and $y_0=y_1=Y$.
+Subtracting rows in \eqref{eq:gradient-matrix} gives the $u$ row
+of $S$ as $(2X,-2Y,0,0)$. Symmetry therefore gives
+\[
+ x^2-y^2=2Xx-2Yy.
+\]
+At index $0$, this implies $X^2=Y^2$. If necessary, simultaneous
+complex conjugation changes $Y$ to $-Y$, so assume $X=Y$.
+Put
+\begin{equation}\label{eq:rs-def}
+ r=\frac{x-y}{\sqrt2},\qquad
+ s=\frac{x+y}{\sqrt2},\qquad \eta=\sqrt2X.
+\end{equation}
+These are orthonormal columns and satisfy
+\begin{equation}\label{eq:case2-basic}
+ rs=\eta r,\qquad ru=0,\qquad su=\eta u,
+ \qquad r_0=r_1=0,\quad s_0=s_1=\eta.
+\end{equation}
+
+In the orthogonal coordinates $r,s,u,v$ the cubic becomes
+\[
+ Q=2rsu+(s^2-r^2)v,
+\]
+and its gradient columns become
+\[
+ (2su-2rv,\quad 2ru+2sv,\quad 2rs,\quad s^2-r^2).
+\]
+This is a passive change of coordinates: the displayed polynomial is
+$Q$ expressed in $r,s,u,v$, not an assertion that $Q$ or $H$ is invariant
+under this change. If $T$ is the corresponding orthogonal coordinate
+matrix, the frame and gradient matrices become $PT$ and $GT$, and
+$G=PS$ becomes $GT=(PT)(T^TST)$. Thus the coefficient matrix remains
+symmetric. The actual normalization of the placement at the end of this
+case will use the allowed circle rotation $h_{\pi/4}$. By \eqref{eq:case2-basic}, its third gradient column
+is $2\eta r$. Symmetry fixes the $u$ coefficients in the other
+columns. The additional identities
+\[
+ \ip{rv}{s}=\ip{sv}{r}=\sum_i r_is_iv_i
+                         =\eta\ip r v=0
+\]
+remove their cross coefficients. It follows that there are real
+$a,c,e,f,\gamma$ with
+\begin{align}
+ rv&=a r+c v,& sv&=e s+f v,\label{eq:case2-products}\\
+ s^2-r^2&=-2c r+2f s+\gamma v.
+                  \label{eq:case2-squares}
+\end{align}
+Equivalently, in the ordered coordinates $r,s,u,v$, the coefficient
+matrix has the form
+\[
+ \begin{pmatrix}
+ -2a&0&2\eta&-2c\\
+ 0&2e&0&2f\\
+ 2\eta&0&0&0\\
+ -2c&2f&0&\gamma
+ \end{pmatrix}.
+\]
+This displays explicitly the coefficients $-2c$ and $2f$ forced by
+symmetry. Taking the inner product of
+\eqref{eq:case2-squares} with $v$ gives
+\begin{equation}\label{eq:case2-gamma}
+ \gamma=\ip s{sv}-\ip r{rv}=e-a.
+\end{equation}
+
+We claim $\eta=0$. Suppose otherwise, and let $K=\supp r$.
+It is nonempty, and $s_i=\eta$ for $i\in K$.
+If $c\ne0$, the first equation of \eqref{eq:case2-products}
+forces $v_i=0$ off $K$. Thus $sv=\eta v$, so independence of
+$s,v$ in the second equation gives $e=0$ and $f=\eta$.
+Off $K$, \eqref{eq:case2-squares} now gives
+$s_i^2=2\eta s_i$. On $K$, one has $s_i=\eta$.
+All entries of $s$ therefore belong to $\{0,\eta,2\eta\}$,
+contradicting its zero mean. Hence $c=0$.
+
+The first equation of \eqref{eq:case2-products} now gives $v_i=a$
+on $K$. Let $v_0=v_1=W$. Comparing
+\eqref{eq:case2-squares} at $0$ and an index $i\in K$ yields
+\[
+ r_i^2=\gamma(W-a)>0.
+\]
+In particular $W\ne a$. Comparing the second equation of
+\eqref{eq:case2-products} at those same indices gives
+$(\eta-f)(W-a)=0$. Therefore $f=\eta$, and substitution gives
+$e=0$. Now $(s-\eta\one)v=0$. At any index outside $K$ where
+$s_i\ne\eta$, one has $v_i=0$, and
+\eqref{eq:case2-squares} yields $s_i\in\{0,2\eta\}$.
+All other entries equal $\eta$. This gives the same zero-mean
+contradiction. Thus $\eta=0$.
+
+We now have $rs=0$. Multiplying the first equation of
+\eqref{eq:case2-products} by $s$ gives $ce=cf=0$;
+multiplying the second by $r$ gives $fa=fc=0$, since the relevant
+columns are linearly independent. If $c\ne0$, then $e=f=0$, so
+$sv=0$. At an index where $s_i\ne0$, both $r_i$ and $v_i$ vanish,
+and \eqref{eq:case2-squares} would give $s_i^2=0$, a contradiction.
+Hence $c=0$. Similarly, if $f\ne0$, then $a=c=0$ and $rv=0$;
+at an index where $r_i\ne0$, the same equation gives
+$-r_i^2=0$. Therefore $f=0$ as well. We have proved
+\begin{equation}\label{eq:case2-reduced}
+ rv=a r,\qquad sv=e s,\qquad s^2-r^2=\gamma v.
+\end{equation}
+The number $\gamma$ is nonzero: otherwise $r^2=s^2$, impossible
+for nonzero columns with disjoint supports.
+
+On the support of $r$ one has $v_i=a$ and $r_i^2=-\gamma a$;
+on the support of $s$ one has $v_i=e$ and $s_i^2=\gamma e$.
+Thus each nonzero magnitude is constant on its support. Zero mean
+and unit norm give even support sizes and balanced signs as in
+\eqref{eq:normal-supports}. Outside the two supports, $v_i=0$.
+
+Finally apply the allowed circle rotation $h_{\pi/4}$. By
+\eqref{eq:rs-def}, the new complex columns are
+\[
+ z_1'=r+is,\qquad z_2'=-v+iu.
+\]
+Thus the new real $z_2$ column is $(r^2-s^2)/\gamma$.
+The new imaginary column is the old $u$, which is supported at
+indices $0,1$, where $r=s=0$. Consequently it is zero on both
+supports. This proves the asserted form with $\omega=0$.
+
+\subsubsection*{The final norm identity}
+In either case, disjointness of the supports and the fact that
+$u$ has norm one give
+\[
+ 1=\norm u^2
+  =\frac1{\gamma^2}
+     \left(\sum_i x_i^4+\sum_i y_i^4\right)
+  =\frac1{\gamma^2}\left(\frac1{k_1}+\frac1{k_2}\right).
+\]
+Finally, the complement $O$ of $K_1\cup K_2$ is nonempty. Otherwise
+$v=\omega\one$ would have zero mean only if $v=0$, contradicting its
+unit norm. In particular $k_1+k_2\leq N-1$.
+This completes the proof of \eqref{eq:normal-uv} and the proposition.
+\end{proof}
+
+\begin{lemma}[Evaluation in the normal form]\label{lem:normal-evaluation}
+For a frame in the form of \cref{prop:normal-form},
+\begin{equation}\label{eq:nonzero-obstruction}
+ \Lambda_A(H)=\frac1{\sqrt2\,k_1k_2\gamma}\ne0.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For an oriented edge $(i,j)$ write
+$\Delta x=x_i-x_j$ and similarly for the other coordinates.
+The normalization by $\sqrt2$ gives
+\begin{equation}\label{eq:H-edge}
+ H\!\left(\frac{p_i-p_j}{\sqrt2}\right)
+ =\frac{\bigl((\Delta x)^2+(\Delta y)^2\bigr)
+     \bigl(2\Delta x\Delta y\Delta u
+        -((\Delta x)^2-(\Delta y)^2)\Delta v\bigr)}{4\sqrt2}.
+\end{equation}
+The generator gives
+\begin{equation}\label{eq:X-edge}
+ X(A)_{ij}=-x_i y_j+y_i x_j-2u_i v_j+2v_i u_j.
+\end{equation}
+Let $O$ be the complement of $K_1\cup K_2$, and put
+\[
+ U_1=\frac1{k_1\gamma},\qquad
+ U_2=-\frac1{k_2\gamma}.
+\]
+Then $u_i=U_a$ on $K_a$, $u_i=0$ on $O$, and
+$U_1-U_2=\gamma$ by \eqref{eq:normal-uv}.
+We group the edge contributions. The product of the two factors
+in \eqref{eq:Lambda} is independent of edge orientation, so each
+edge may be oriented to agree with the indicated grouping.
+
+\subsubsection*{Edges between $K_1$ and $K_2$}
+For $i\in K_1$, $j\in K_2$, put $a=x_i$ and $b=y_j$.
+Equations \eqref{eq:H-edge} and \eqref{eq:X-edge} give
+\[
+ H\!\left(\frac{p_i-p_j}{\sqrt2}\right)
+    =-\frac{\gamma^3ab}{2\sqrt2},\qquad
+ X(A)_{ij}=-ab-2\omega\gamma.
+\]
+Consequently the sum over these edges is
+\begin{align}
+ \frac{\gamma^3}{2\sqrt2}
+ \sum_{i\in K_1,j\in K_2}
+       \bigl(x_i^2y_j^2+2\omega\gamma x_i y_j\bigr)
+ &=\frac{\gamma^3}{2\sqrt2}.
+ \label{eq:cross-sum}
+\end{align}
+We used $\sum_{K_1}x_i^2=\sum_{K_2}y_j^2=1$ and
+$\sum_{K_1}x_i=\sum_{K_2}y_j=0$.
+
+\subsubsection*{Edges from $K_1$ to $O$}
+Fix $j\in O$ and write $w=v_j$. For $i\in K_1$,
+\[
+ H\!\left(\frac{p_i-p_j}{\sqrt2}\right)
+       =-\frac{\omega-w}{4\sqrt2\,k_1^2},\qquad
+ X(A)_{ij}=-2U_1w.
+\]
+Summing over the $k_1$ possible indices $i$ gives
+\begin{equation}\label{eq:K1O}
+ \frac{w(\omega-w)}{2\sqrt2\,k_1^2\gamma}.
+\end{equation}
+
+\subsubsection*{Edges from $K_2$ to $O$}
+For the same fixed $j$ and $i\in K_2$,
+\[
+ H\!\left(\frac{p_i-p_j}{\sqrt2}\right)
+       =\frac{\omega-w}{4\sqrt2\,k_2^2},\qquad
+ X(A)_{ij}=-2U_2w.
+\]
+Their sum is
+\begin{equation}\label{eq:K2O}
+ \frac{w(\omega-w)}{2\sqrt2\,k_2^2\gamma}.
+\end{equation}
+
+\subsubsection*{All remaining edges and the total}
+Edges internal to $K_1$ or to $K_2$ have $\Delta u=\Delta v=0$,
+so their $H$ labels vanish. Edges internal to $O$ have
+$\Delta x=\Delta y=0$, so their labels also vanish.
+Because $v$ has zero mean and norm one,
+\[
+ \sum_{j\in O}v_j=-(k_1+k_2)\omega,\qquad
+ \sum_{j\in O}v_j^2=1-(k_1+k_2)\omega^2.
+\]
+It follows that
+\begin{equation}\label{eq:outside-moment}
+ \sum_{j\in O}v_j(\omega-v_j)=-1.
+\end{equation}
+Thus \eqref{eq:cross-sum}--\eqref{eq:outside-moment} give
+\begin{align*}
+ \Lambda_A(H)
+ &=\frac1{2\sqrt2}
+       \left(\gamma^3-
+          \frac{k_1^{-2}+k_2^{-2}}{\gamma}\right)\\
+ &=\frac{(k_1^{-1}+k_2^{-1})^2-k_1^{-2}-k_2^{-2}}
+          {2\sqrt2\,\gamma}
+  =\frac1{\sqrt2\,k_1k_2\gamma}.
+\end{align*}
+The denominator is nonzero. This proves the assertion.
+\end{proof}
+
+\begin{corollary}[Exceptional obstruction]\label{cor:exceptional}
+If $A\in\Exc$ and $\mathcal R_Q(A)=0$, then $\Lambda_A(H)\ne0$.
+\end{corollary}
+\begin{proof}
+Apply \cref{prop:normal-form,lem:normal-evaluation}, and use the
+invariance of $\Lambda_A(H)$ under the normalizations in
+\cref{lem:normalizations}.
+\end{proof}
+
+\section{Completion of the counterexample construction}\label{sec:completion}
+
+\begin{proposition}[An open set avoiding exceptional placements]
+\label{prop:exceptional-open}
+There exists $\eps_0>0$ such that, for every
+$0<|\eps|<\eps_0$, the polynomial $F_\eps=Q+\eps H$ satisfies
+\[
+ \mathcal R_{F_\eps}(A)\ne0\qquad(A\in\Exc).
+\]
+For each such $\eps$, this property persists in a neighborhood of
+$F_\eps$ in $\Pol$.
+\end{proposition}
+\begin{proof}
+If the first assertion failed, there would exist nonzero
+$\eps_j\to0$ and $A_j\in\Exc$ such that
+$\mathcal R_{Q+\eps_jH}(A_j)=0$.
+By \eqref{eq:exact-Lambda} and \cref{lem:annihilator},
+\[
+ 0=\Lambda_{A_j}(Q+\eps_jH)
+   =\eps_j\Lambda_{A_j}(H).
+\]
+Hence $\Lambda_{A_j}(H)=0$ for every $j$.
+Compactness gives a subsequence converging to
+$A_\infty\in\Exc$. The residual is continuous, so
+$\mathcal R_Q(A_\infty)=0$; likewise,
+$\Lambda_{A_\infty}(H)=0$. This contradicts
+\cref{cor:exceptional}.
+
+Fix an admissible $\eps$. Continuity and compactness give
+\begin{equation}\label{eq:positive-gap}
+ \delta=\min_{A\in\Exc}
+             \norm{\mathcal R_{F_\eps}(A)}_{\mathrm F}>0,
+\end{equation}
+where $\norm{\cdot}_{\mathrm F}$ is the Frobenius matrix norm.
+Because $\Pol$ is finite-dimensional and $\Orth$ is compact,
+there is a constant $C>0$ such that
+\begin{equation}\label{eq:uniform-bound}
+ \sup_{A\in\Orth}\norm{\mathcal R_R(A)}_{\mathrm F}
+                                  \leq C\norm R\qquad(R\in\Pol).
+\end{equation}
+For example, expand $R$ in a fixed basis of $\Pol$, bound each
+basis residual on $\Orth$, and use equivalence of norms in a
+finite-dimensional vector space. By linearity of the residual,
+every $F_\eps+R$ with $\norm R<\delta/(2C)$ has residual norm
+at least $\delta/2$ on $\Exc$. This proves the openness assertion.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:perturbative,thm:main}]
+Fix $0<|\eps|<\eps_0$ as in \cref{prop:exceptional-open}, and
+let $\eta>0$. By \cref{prop:generic}, the complement of
+$\mathcal B$ is dense in $\Pol$. The open ball about $F_\eps$
+of radius $\min\{\eta,\delta/(2C)\}$ therefore contains a
+polynomial $F\notin\mathcal B$. Write $R=F-F_\eps$.
+Then $\norm R<\eta$, and \cref{prop:exceptional-open} excludes
+exact labels on $\Exc$. The definition of $\mathcal B$ excludes
+exact labels everywhere else. Thus
+$\mathcal R_F(A)\ne0$ for every $A\in\Orth$.
+By \cref{lem:exact}, this is precisely the failure of
+\eqref{eq:agreement}. The polynomial $F\in\Pol$ is odd and
+has degree at most $D$, and its sphere restriction is smooth.
+This proves both theorems.
+\end{proof}
+
+\begin{remark}\label{rem:scope}
+The argument is an existence proof in an explicitly specified
+finite-dimensional polynomial space. It does not exhibit coefficients
+for $R$, a numerical $\eps_0$, or an optimal degree bound. It also
+does not prove that $Q+\eps H$ alone is a counterexample for every
+$d\geq4$. The purpose of $R$ is to avoid the nonexceptional
+placements without classifying all their cubic solutions.
+\end{remark}
+
+\section{The constant-width and universal-cover consequence}
+\label{sec:geometry}
+
+The passage from odd functions to small perturbations of the support
+function of a ball is standard; see
+\cite[Section 1, Proposition 1]{Kuperberg1999} and
+\cite[Lemma 8]{Chen2026}. We include the needed implication with
+width normalized to one.
+
+\begin{lemma}[Realizing a small odd perturbation]\label{lem:support}
+Let $f:S^{d-1}\to\R$ be smooth and odd. For all sufficiently small
+$\tau>0$, there is a compact convex body $K$ of constant width one
+whose support function on the sphere is
+\begin{equation}\label{eq:support}
+ h_K(w)=\frac12+\tau f(w).
+\end{equation}
+\end{lemma}
+\begin{proof}
+For $w\ne0$ define
+\[
+ g(w)=\norm w\,f\!\left(\frac w{\norm w}\right),\qquad
+ \widehat h(w)=\tfrac12\norm w+\tau g(w),
+\]
+and set $\widehat h(0)=0$. Both functions are homogeneous of degree
+one for positive scalars. Differentiating Euler's identity gives
+$\nabla^2g(w)w=0$ and $\nabla^2\widehat h(w)w=0$.
+At $\norm w=1$,
+\[
+ \nabla^2\widehat h(w)
+    =\tfrac12(I-ww^T)+\tau\nabla^2g(w).
+\]
+The Hessian of $g$ is uniformly bounded on the unit sphere. Thus,
+for sufficiently small $\tau>0$, the Hessian of $\widehat h$
+is positive definite on $w^\perp$ and positive semidefinite on
+$\R^d$ at each nonzero $w$. Here radial and mixed terms vanish,
+and homogeneity extends the assertion from the unit sphere to
+all $w\ne0$.
+
+The restriction of $\widehat h$ to a line not passing through the
+origin is convex by the nonnegative second derivative. On a line
+through the origin, it is piecewise linear, and the right slope
+minus the left slope, using a unit direction $w$, is
+\[
+ \widehat h(w)+\widehat h(-w)=1.
+\]
+Hence it is convex on those lines as well. It follows that
+$\widehat h$ is convex on all of $\R^d$.
+
+Choose $\tau$ still smaller if needed so that
+$\tau\norm f_\infty<1/2$. Define
+\[
+ K=\{z\in\R^d:\ip z w\leq\widehat h(w)
+                          \text{ for every }w\in S^{d-1}\}.
+\]
+This is closed and convex, contains a ball of positive radius,
+and is bounded by $\max_{S^{d-1}}\widehat h$.
+To verify that its support function is exactly $\widehat h$,
+fix $w\ne0$. Convexity and differentiability at $w$ imply
+\[
+ \widehat h(y)\geq\widehat h(w)
+     +\ip{\nabla\widehat h(w)}{y-w}
+     =\ip{\nabla\widehat h(w)}y,
+\]
+where the last equality is Euler's identity.
+Thus $\nabla\widehat h(w)\in K$, and
+$\ip{\nabla\widehat h(w)}w=\widehat h(w)$.
+The defining inequality of $K$ gives the reverse support bound.
+Therefore $h_K=\widehat h$ and \eqref{eq:support} holds.
+Finally, oddness gives $h_K(w)+h_K(-w)=1$ for every unit direction,
+which is constant width one.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{cor:cover}]
+Take $f=F|_{S^{d-1}}$ from \cref{thm:main}, and form $K$ as in
+\cref{lem:support}. Suppose $K\subset A C_d+b$.
+For each $\alpha=\alpha_{ij}$, the two defining half-spaces give
+\[
+ h_K(A\alpha)\leq\tfrac12+\ip b{A\alpha},\qquad
+ h_K(-A\alpha)\leq\tfrac12-\ip b{A\alpha}.
+\]
+The two left sides sum to one, as do the right sides. Both
+inequalities must therefore be equalities, so
+\[
+ \tau f(A\alpha)=\ip b{A\alpha}
+ \quad\text{for every positive root }\alpha.
+\]
+Division by $\tau>0$ contradicts \cref{thm:main}.
+
+For completeness, a compact convex body of constant width one has
+diameter one. For distinct $x,y\in K$, use
+$w=(x-y)/\norm{x-y}$ to get
+$\norm{x-y}\leq h_K(w)+h_K(-w)=1$.
+Conversely, support points in opposite directions have scalar
+separation one, so their distance is at least one. Thus this $K$
+is itself a set of diameter one not covered by any congruent copy
+of $C_d$.
+\end{proof}
+
+\appendix
+\section{Verification notes and supplementary algebra checks}
+\label{app:verification}
+
+The central dependencies of the proof can be checked independently.
+\Cref{lem:spectral} is a statement about real symmetric matrices;
+it uses neither the cubic nor the exceptional normal form.
+\Cref{lem:stratum} applies it to the quadratic evaluation
+isomorphism. \Cref{prop:generic} then uses only the interpolation
+lemma and semialgebraic fiber dimensions. On the other side,
+\cref{prop:normal-form} is a consequence of the four-column
+orthonormality relations and the symmetric gradient matrix.
+The explicit sum in \cref{lem:normal-evaluation} finishes the
+exceptional analysis. Compactness combines the two parts.
+
+For checking \cref{lem:spectral}, the strict condition $\norm c<1$
+and the separation of the eigenvalue clusters are essential: they
+ensure that any multiple eigenvalue of $B$ is an unchanged double
+eigenvalue of $S$, where the residue in \eqref{eq:secular} vanishes.
+In the incidence argument, the potential $c$ is \emph{not} restricted
+to that unit ball. The bounded auxiliary parameter is used only
+to obtain \eqref{eq:stratum-bound}.
+
+For checking the normal form, the coefficients
+$\gamma=U-a$ in Case 1 and $\gamma=e-a$ in Case 2 follow from
+inner products, not just from subtracting the two special rows.
+The transformations in Case 2 include simultaneous conjugation,
+which reverses both $H$ and the annihilating matrix and therefore
+preserves their pairing. The factor $(\sqrt2)^{-5}=1/(4\sqrt2)$
+in \eqref{eq:H-edge} is retained throughout.
+
+The companion script \texttt{verify\_algebra\_revised.py} checks, using exact
+symbolic arithmetic, the infinitesimal circle invariance of $Q,H$,
+the cubic expansion, the normalized quintic edge formula, the
+three nonzero edge-group sums, and their final simplification.
+It also checks several explicitly specified four-column frames
+satisfying the normal-form hypotheses, including zero and nonzero
+$\omega$ and nonconstant outside entries of $v$. Additional checks cover
+the quadratic-evaluation inverse, the general cubic-residual identity
+on deterministic simplex frames, and characteristic-polynomial
+identities for selected rank-one spectral examples. These are regression
+checks for formulas: neither finitely many test frames nor the script
+certifies exhaustiveness of the normal form or any dimension
+argument. No computational output is used as a premise of the
+proof.
+
+\medskip
+\noindent\textbf{Revision note (September 4, 2026).}
+This revision corrects the scope of the unit-vector normalization statement,
+makes the polar scale and universal-cover convention explicit, expands the
+spectral multiplicity and normal-form coefficient arguments, and clarifies
+the passive coordinate change in Case 2. The theorem statements and the
+existential nature of the perturbation are unchanged. The accompanying
+review and additional symbolic checks are AI-assisted and do not constitute
+independent human review or a formal proof-assistant verification.
+
+\begin{thebibliography}{JLYY11}
+
+\bibitem[BCR98]{BCR1998}
+Jacek Bochnak, Michel Coste, and Marie-Fran\c{c}oise Roy,
+\emph{Real Algebraic Geometry}, Ergebnisse der Mathematik und ihrer
+Grenzgebiete, 3. Folge, vol.~36, Springer-Verlag, Berlin, 1998.
+\href{https://doi.org/10.1007/978-3-662-03718-8}
+{doi:10.1007/978-3-662-03718-8}.
+
+\bibitem[CG26]{ChatGPT2026}
+ChatGPT,
+\emph{Counterexamples to Makeev's regular-simplex conjecture in
+dimensions four and five}, AI-generated, unrefereed repository
+manuscript, August 2026, in the repository
+\texttt{simplex4/math-results}, file
+\texttt{makeev-code/a4/makeev\_d4\_d5.tex}.
+\url{https://github.com/simplex4/math-results/blob/main/makeev-code/a4/makeev_d4_d5.tex}.
+Consulted September 4, 2026. Authorship is reproduced as stated in
+the manuscript; the repository account is not identified as a human
+author here.
+
+\bibitem[Ch26]{Chen2026}
+Yizhen Chen,
+\emph{Note on Lebesgue's universal cover problem},
+arXiv:2607.27227v2 [math.MG], August 6, 2026.
+\url{https://arxiv.org/abs/2607.27227v2}.
+
+\bibitem[H80]{Hardt1980}
+Robert M. Hardt,
+\emph{Semi-algebraic local-triviality in semi-algebraic mappings},
+American Journal of Mathematics \textbf{102} (1980), no.~2, 291--302.
+\href{https://doi.org/10.2307/2374240}{doi:10.2307/2374240}.
+
+\bibitem[HLTV11]{HLTV2011}
+Robert Hardt, Pascal Lambrechts, Victor Turchin, and Ismar Voli\'c,
+\emph{Real homotopy theory of semi-algebraic sets},
+Algebraic \& Geometric Topology \textbf{11} (2011), no.~5, 2477--2545.
+\href{https://doi.org/10.2140/agt.2011.11.2477}
+{doi:10.2140/agt.2011.11.2477}.
+Preprint: \url{https://arxiv.org/abs/0806.0476v3}.
+
+\bibitem[JLYY11]{JiangLimYaoYe2011}
+Xiaoye Jiang, Lek-Heng Lim, Yuan Yao, and Yinyu Ye,
+\emph{Statistical ranking and combinatorial Hodge theory},
+Mathematical Programming \textbf{127} (2011), no.~1, 203--244.
+\href{https://doi.org/10.1007/s10107-010-0419-x}
+{doi:10.1007/s10107-010-0419-x}.
+
+\bibitem[K99]{Kuperberg1999}
+Greg Kuperberg,
+\emph{Circumscribing constant-width bodies with polytopes},
+New York Journal of Mathematics \textbf{5} (1999), 91--100.
+\url{https://nyjm.albany.edu/j/1999/5-6p.pdf}.
+Preprint: \url{https://arxiv.org/abs/math/9809165v3}.
+
+\bibitem[VM26]{VibeMathed2026}
+VibeMathed,
+\emph{Makeev's conjecture on universal cover}, online problem entry,
+2026. \url{https://vibemathed.com/problem/makeev-s-conjecture-on-universal-cover}.
+Consulted September 4, 2026. This entry links the repository
+manuscript \cite{ChatGPT2026}; it is not used as a proof source.
+
+\end{thebibliography}
+\end{document}
